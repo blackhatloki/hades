@@ -1,0 +1,8 @@
+hostname: e-10-4
+provider:
+  host: "{{ hostname }}"
+  username: admin
+  password: Hap123$
+  authorize: yes
+  auth_pass: xxxxx
+  transport: cli

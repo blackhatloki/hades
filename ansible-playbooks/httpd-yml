@@ -1,0 +1,9 @@
+- name: Configure webserver with httpd 
+  hosts: c28-01
+  become: True
+  tasks:
+    - name: Install httpd 
+      yum:  name=httpd update_cache=yes 
+   
+    - name: restart httpd
+      service: name=httpd stated=start

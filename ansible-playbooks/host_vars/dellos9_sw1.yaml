@@ -1,0 +1,9 @@
+hostname: e-10-4
+cli:
+  host: "{{ ansible_host }}"
+  username: admin
+  password: xxxxx
+  authorize: yes
+  auth_pass: xxxxx
+  transport: cli
+

@@ -1,0 +1,55 @@
+---
+- name: Save Configurations (IOS)
+  hosts: TenGigSw
+  gather_facts: no
+  vars:
+    creds:
+      host: "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+  tasks:
+    - ios_command:
+        provider: "{{ creds }}"
+        commands: show run
+      register: show_run
+
+    - copy:
+        content: "{{ show_run.stdout[0] }}"
+        dest: "CFGS/{{ inventory_hostname }}.txt"
+
+- name: Save running config to file (Arista)
+  hosts: arista
+  gather_facts: no
+  tasks:
+    - eos_command:
+        host: "{{ host }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        transport: https
+        commands: show running-config
+        encoding: text
+      register: show_run
+
+    - copy:
+        content: "{{  show_run.output[0].result.output }}"
+        dest: "CFGS/{{ inventory_hostname }}.txt"
+
+- name: Save running config to file (NXOS)
+  hosts: nxos
+  gather_facts: no
+  vars:
+    creds:
+        host: "{{ host }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        transport: cli
+
+  tasks:
+    - nxos_command:
+        provider: "{{ creds }}"
+        commands: show running-config
+      register: show_run
+
+    - copy:
+        content: "{{ show_run.stdout[0] }}"
+        dest: "CFGS/{{ inventory_hostname }}.txt" 

@@ -1,0 +1,13 @@
+---
+- hosts: e-10-4
+  connection: local
+  gather_facts: no
+
+  tasks:
+  - name: "Gather Dell EMC OS9 Device Facts"
+    dellos9_facts:
+      gather_subset: ["all"] 
+      provider: "{{ cli }}"
+    register: facts
+
+  - debug: var=facts

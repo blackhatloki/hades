@@ -1,0 +1,6 @@
+hostname: dellos10_sw1
+cli:
+  host: "{{ ansible_host }}"
+  username: xxxxx
+  password: xxxxx
+  transport: cli
