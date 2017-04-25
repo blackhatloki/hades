@@ -1,0 +1,5 @@
+#!/bin/bash 
+export PATH=$PATH:/opt/VRTSvcs/bin
+haconf -makerw
+hares -modify ntfr SmtpRecipients  "list.tis-rdo-am-ll-aes-supportcredit-suisse.com" SevereError
+haconf -dump -makero

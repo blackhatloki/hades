@@ -1,0 +1,4 @@
+#!/bin/bash 
+for i in `cat list` ; do 
+ssh $i "chkconfig nscd on ; /etc/init.d/nscd start" 
+done 

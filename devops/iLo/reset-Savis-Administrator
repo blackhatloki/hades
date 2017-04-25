@@ -1,0 +1,6 @@
+#!/bin/bash 
+for i in `cat servers`  ; do 
+    echo $i 
+    echo "Setting $i-ilo" 
+    ping -c 3 $i-ilo && ./locfg.pl -s $i-ilo.equity.csfb.com -f Administrator_Reset_Savis.xml
+done 

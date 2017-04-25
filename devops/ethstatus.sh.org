@@ -1,0 +1,10 @@
+#!/bin/bash
+PATH=/sbin:/bin:/usr/bin:/usr/sbin
+export PATH
+for eth in `ifconfig -a | egrep "eth|eqfn|bond0$|bond1$|tpnc|rmds|trade" | awk -F" " ' { print $1 } ' `
+  do
+    echo -n "`hostname`",
+    echo -n $eth,
+    ethtool $eth  | egrep -i "Speed:|Duplex:|Link detected:" | sed -e 's/       //g' | awk -F":" ' { printf "%s %s,",$1,$2 } ' | sed -e 's/,$//g'
+    echo
+  done

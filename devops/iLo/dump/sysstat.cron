@@ -1,0 +1,21 @@
+#crontab for sysstat
+
+##activity reports every 10 minutes everyday
+# -* *   * * *     root   /usr/lib64/sa/sa1
+
+#update reports every 6 hours
+##0    */6 * * *     root  /usr/lib64/sa/sa2 -A
+
+#################################################################################
+# Saturday - Sunday   10-Minute SAR
+-*/10 * * * 0,6 root /usr/lib64/sa/sa1
+# Monday - Friday      1-Second SAR from 6 AM to 8 PM - Start process at 6am daily
+0 6 * * 1-5 root /usr/lib64/sa/sa1 1 50400 >/var/log/errors 2>&1 &
+##15 20 * * 1-5 root /usr/lib64/sa/sa1 1 50400 >/var/log/errors 2>&1 &
+#
+# Monday - Friday     10-Minute SAR from 8 PM to 6 AM
+-*/10 0-5,19-23 * * 1-5 root /usr/lib64/sa/sa1
+#
+# clean up the sar directory nightly
+0 23 * * * root ( /usr/bin/find /var/log/sa -mtime +5 -exec rm {} \; ;  /usr/bin/find /var/log/sa -mmin +1000 -name "sa*[^z]" -exec gzip {} \; )
+#################################################################################

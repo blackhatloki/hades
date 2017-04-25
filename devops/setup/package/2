@@ -1,0 +1,4 @@
+#!/bin/bash 
+for i in `cat trade-ip `; do 
+ping -I bond1 -c 3 $i 
+done 

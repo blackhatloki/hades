@@ -1,0 +1,18 @@
+#!/bin/bash
+
+PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/bin:/usr/local/sbin
+PATH=$PATH
+
+APP=aes_options
+find  /app/bin \
+      /app/home \
+      /etc/sysctl.conf \
+      /etc/sysconfig/ulimit \
+      /etc/ssh/sshd_config \
+      /app/pathfinder \
+      /app/pulse \
+      /app/pulse-installs \
+      /app/flume-installs \
+      /app/local \
+      /app/flume  | cpio -ovc > /var/tmp/$APP.cpio
+

@@ -1,0 +1,5 @@
+#!/bin/bash 
+cd /var/tmp/p
+for i in `cat /var/tmp/p/trade-ip `; do 
+ping -I bond1 -c 3 $i 
+done 
