@@ -1,0 +1,936 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0058)http://blogs.sun.com/timc/resource/nicstat/nicstat-linux.c -->
+<HTML><HEAD>
+<META http-equiv=Content-Type content="text/html; charset=windows-1252">
+<META content="MSHTML 6.00.2900.3562" name=GENERATOR></HEAD>
+<BODY><PRE>/*
+ * CDDL HEADER START
+ *
+ * The contents of this file are subject to the terms of the
+ * Common Development and Distribution License, Version 1.0 only
+ * (the "License").  You may not use this file except in compliance
+ * with the License.
+ *
+ * You can obtain a copy of the license at usr/src/OPENSOLARIS.LICENSE
+ * or http://www.opensolaris.org/os/licensing.
+ * See the License for the specific language governing permissions
+ * and limitations under the License.
+ *
+ * When distributing Covered Code, include this CDDL HEADER in each
+ * file and include the License file at usr/src/OPENSOLARIS.LICENSE.
+ * If applicable, add the following below this CDDL HEADER, with the
+ * fields enclosed by brackets "[]" replaced with your own identifying
+ * information: Portions Copyright [yyyy] [name of copyright owner]
+ *
+ * CDDL HEADER END
+ */
+
+/*
+ * nicstat - print network traffic, Kb/s read and written. Linux.
+ *
+ * 21-Feb-2007, Tim.Cook@sun.com
+ *
+ * COMPILE:
+ *	gcc -m32 -o nicstat nicstat-linux.c
+ *
+ * USAGE: nicstat [-hsz] [-i int[,int...]] [-S int:mbps[,...]]
+ *        | [interval [count]]
+ *
+ *          -h              # help
+ *          -i interface    # track interface only
+ *          -n	            # show non-local interfaces only (exclude lo0)
+ *          -s              # summary output
+ *          -S int:mbps     # tell nicstat interface speed(s) (Mbits/sec)
+ *          -z              # skip zero value lines
+ *     eg,
+ *        nicstat           # print summary since boot only
+ *        nicstat 1         # print every 1 second
+ *        nicstat 1 5       # print 5 times only
+ *        nicstat -z 1      # print every 1 second, skip zero lines
+ *        nicstat -i hme0 1 # print hme0 only every 1 second
+ *
+ * This prints out the Kb/s transferred for all the network cards (NICs),
+ *  including packet counts and average sizes. The first line is the historic
+ *  data since boot.
+ *
+ * FIELDS:
+ *		Int	Interface
+ *		rKB/s	read KBytes/s
+ *		wKB/s	write KBytes/s
+ *		rPk/s	read Packets/s
+ *		wPk/s	write Packets/s
+ *		rAvs	read Average size, bytes
+ *		wAvs	write Average size, bytes
+ *		%Util	%Utilisation (r+w/ifspeed) - see CAVEATS
+ *		Sat	Saturation (defer, nocanput, norecvbuf, noxmtbuf)
+ *
+ * Utilisation is based on bytes transferred divided by speed of the interface.
+ *  It should be impossible to reach 100% as there are overheads due to bus
+ *  negotiation and timing.
+ *
+ * Saturation is determined by counting read and write errors caused by the
+ *  interface running at saturation. This approach is not ideal, and the value
+ *  reported is often lower than it should be (eg, 0.0). Reading the rKB/s and
+ *  wKB/s fields may be more useful.
+ *
+ *
+ * SEE ALSO:
+ *	nicstat					# the Perl version
+ *	kstat -n hme0 [interval [count]]	# or qfe0, ...
+ *	netstat -iI hme0 [interval [count]]
+ *	se netstat.se [interval]		# SE Toolkit
+ *	se nx.se [interval]			# SE Toolkit
+ *
+ * CAVEATS
+ *	It appears there is no way to determine the speed of an interface
+ *	in Linux, so the %Util numbers are bogus at present.
+ *
+ * COPYRIGHT: Copyright (c) 2007 Tim Cook.  See CDDL header above.
+ */
+
+#pragma ident	"@(#)nicstat-linux.c	1.5	09/07/14 Tim.Cook@sun.com"
+
+#ifndef	DEBUG
+#define	DEBUG	0
+#endif
+
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;fcntl.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;sys/socket.h&gt;
+#include &lt;stropts.h&gt;
+#include &lt;net/if.h&gt;
+#include &lt;sys/time.h&gt;
+#include &lt;time.h&gt;
+#include &lt;errno.h&gt;
+#include &lt;stdarg.h&gt;
+#include &lt;signal.h&gt;
+
+extern int errno;
+
+#define	PAGE_SIZE 20
+#define	INTERVAL 1
+#define	LOOP_MAX 1
+
+/* #ifdef __linux__ */
+#define	PROC_NET_DEV_PATH	"/proc/net/dev"
+#define	PROC_NET_BUFSIZ		(128 * 1024)
+#define	PROC_UPTIME		"/proc/uptime"
+typedef unsigned long long	uint64_t;
+extern char *optarg;
+extern int optind, opterr, optopt;
+/* #endif __linux__ */
+
+/*
+ * Interface stats
+ */
+struct nic_stats {
+	time_t time;			/* time of sample */
+	uint64_t rbytes;		/* total read bytes */
+	uint64_t wbytes;		/* total written bytes */
+	uint64_t rpackets;		/* total read packets */
+	uint64_t wpackets;		/* total written packets */
+	uint64_t speed;			/* speed of interface */
+	uint64_t sat;			/* saturation value */
+};
+struct nicdata {
+	char *name;		/* interface name (e.g. "lo0") */
+	struct nicdata *next;	/* pointer to next */
+	struct nic_stats old;	/* stats from previous lookup */
+	struct nic_stats new;	/* stats from current lookup */
+};
+
+struct if_list {
+	struct if_list *next;
+	char *name;
+	struct nicdata *nicp;
+};
+
+struct if_speed_list {
+	struct if_speed_list *next;
+	char *name;
+	uint64_t speed;
+};
+
+static struct if_speed_list *g_if_speed_list = NULL;
+
+/*
+ * This will contain everything we need to know about each interface, and
+ * will be dynamically allocated.
+ */
+static struct nicdata *g_nicdatap = NULL;
+
+static int g_nicdata_count = 0;		/* number of if's we are tracking */
+static int g_style;			/* output style */
+static int g_skipzero;			/* skip zero value lines */
+static int g_nonlocal;			/* list only non-local (exclude lo0) */
+static int g_someif;			/* trace some interfaces only */
+static int g_forever;			/* run forever */
+static char **g_tracked;		/* tracked interfaces */
+static unsigned long g_boot_time;	/* when we booted */
+static int g_line;			/* output line counter */
+static int g_caught_cont;		/* cought SIGCONT - was suspended */
+static char *g_arg0;			/* ptr to argv[0] */
+static struct if_list *g_if_list;	/* array of if_name's */
+
+/*
+ * die - print stderr message and exit.
+ *
+ * This subroutine prints an error message and exits with a non-zero
+ * exit status.
+ */
+static void
+die(int use_errno, char *format, ...)
+{
+	va_list ap;
+	char *error_str;
+
+	(void) fprintf(stderr, "%s: ", g_arg0);
+	if (use_errno) {
+		error_str = strerror(errno);
+		if (! error_str)
+			error_str = strerror(0);
+	}
+	va_start(ap, format);
+	(void) vfprintf(stderr, format, ap);
+	va_end(ap);
+	if (use_errno)
+		(void) fprintf(stderr, ": %s\n", error_str);
+	else
+		(void) fputc('\n', stderr);
+	exit(2);
+}
+
+/*
+ * usage - print a usage message and exit.
+ */
+static void
+usage(void)
+{
+	(void) fprintf(stderr,
+	    "USAGE: nicstat [-hsz] [-i int[,int...]]\n"
+	    "   [-S int:mbps[,int:mbps...]] | [interval [count]]\n"
+	    "\n"
+	    "         -h              # help\n"
+	    "         -i interface    # track interface only\n"
+	    "         -n              # show non-local interfaces only"
+					" (exclude lo0)\n"
+	    "         -s              # summary output\n"
+	    "         -S int:mbps     # tell nicstat the interface"
+					" speed(s) (Mbits/sec)\n"
+	    "         -z              # skip zero value lines\n"
+	    "    eg,\n");
+	(void) fprintf(stderr,
+	    "       nicstat           # print summary since boot only\n"
+	    "       nicstat 1         # print every 1 second\n"
+	    "       nicstat 1 5       # print 5 times only\n"
+	    "       nicstat -z 1      # print every 1 second, skip zero lines\n"
+	    "       nicstat -i hme0 1 # print hme0 only every 1 second\n");
+	exit(1);
+}
+
+/*
+ * new_string - simply strdup(3), but terminate on failure
+ */
+static char *
+new_string(char *s)
+{
+	char *new;
+
+	new = strdup(s);
+	if (! new)
+		die(1, "strdup", g_arg0);
+	return (new);
+}
+
+/*
+ * string_in_array - return true if str is found in array
+ */
+static int
+string_in_array(char *str, char **array)
+{
+	char **p;
+
+	for (p = array; *p; p++)
+		if (strcmp(str, *p) == 0)
+			return (1);
+	return (0);
+}
+
+/*
+ * find_nicdata - find a struct nicdata * from our global list
+ *
+ * Return a struct nicdata pointer; if it is found in the global list.
+ * If not found, allocate a new one and attach it to the end.
+ * Modifies g_nicdatap.
+ */
+static struct nicdata *
+find_nicdatap(char *if_name)
+{
+	struct nicdata *matchp, *tailp;
+
+	tailp = NULL;
+	for (matchp = g_nicdatap; matchp; matchp = matchp-&gt;next) {
+		/* Check for a match */
+		if (strcmp(matchp-&gt;name, if_name) == 0) {
+			/* We have a match */
+			return (matchp);
+		}
+		tailp = matchp;
+	}
+	/* Need to allocate a new one */
+	matchp = calloc(1, sizeof (struct nicdata));
+	if (! matchp)
+		die(1, "calloc");
+	matchp-&gt;name = new_string(if_name);
+	if (tailp)
+		tailp-&gt;next = matchp;
+	else
+		g_nicdatap = matchp;
+	return (matchp);
+}
+
+static void
+init_if_list()
+{
+	struct if_list *ptr, *tmp;
+
+	for (ptr = g_if_list; ptr; ) {
+		free(ptr-&gt;name);
+		tmp = ptr-&gt;next;
+		free(ptr);
+		ptr = tmp;
+	}
+}
+
+static struct if_list *
+add_to_g_if_list(char *if_name, struct if_list *tailp)
+{
+	struct if_list *tail, *ptr;
+
+	ptr = calloc(1, sizeof (struct if_list));
+	if (! ptr)
+		die(1, "calloc");
+	ptr-&gt;name = new_string(if_name);
+	if (tailp) {
+		/* g_if_list must already be there */
+		tail = tailp;
+		while (tail-&gt;next)
+			tail = tail-&gt;next;
+		tail-&gt;next = ptr;
+	} else
+		/* g_if_list is currently empty */
+		g_if_list = ptr;
+	return (ptr);
+}
+
+static void
+init_if_speed_list(char *speed_list)
+{
+	struct if_speed_list	*list_elem;
+	char			*speed_list_save_ptr;
+	char			*if_record;
+	char			*if_record_save_ptr;
+	char			*name;
+	char			*speed;
+
+	if_record = strtok_r(speed_list, ",", &amp;speed_list_save_ptr);
+
+	while (if_record != NULL) {
+		name = strtok_r(if_record, ":", &amp;if_record_save_ptr);
+		speed = strtok_r(NULL, ":", &amp;if_record_save_ptr);
+
+		if (name == NULL || speed == NULL)
+			die(0, "invalid -S argument");
+
+		list_elem = malloc(sizeof (struct if_speed_list));
+
+		list_elem-&gt;name = new_string(name);
+		list_elem-&gt;speed = atoll(speed) * 1000000;
+		list_elem-&gt;next = NULL;
+
+		if (list_elem-&gt;speed == 0)
+			die(0, "invalid speed for -S %s:%s", name, speed);
+
+		list_elem-&gt;next = g_if_speed_list;
+		g_if_speed_list = list_elem;
+
+		if_record = strtok_r(NULL, ",", &amp;speed_list_save_ptr);
+	}
+}
+
+static uint64_t
+find_interface_speed(char *if_name)
+{
+	struct if_speed_list	*if_speed_list_ptr;
+
+	if_speed_list_ptr = g_if_speed_list;
+
+	while (if_speed_list_ptr != NULL) {
+		if (strcmp(if_name, if_speed_list_ptr-&gt;name) == 0) {
+			return (if_speed_list_ptr-&gt;speed);
+		}
+		if_speed_list_ptr = if_speed_list_ptr-&gt;next;
+	}
+
+	/* Just a big number */
+	return (1LL &lt;&lt; 48);
+}
+
+/*
+ * update_stats - update stats for interfaces we are tracking
+ */
+static void
+update_stats(int net_dev)
+{
+	struct nicdata *nicp;
+	int now;
+	static int validated_format = 0;
+	static char proc_net_buffer[PROC_NET_BUFSIZ];
+	char *bufp;
+	int bufsiz, buf_remain, ret, n, skip_to_newline;
+	unsigned long long ll[16];
+	char if_name[32];
+	struct if_list *if_tail;
+
+	/*
+	 * Load PROC_NET_DEV
+	 */
+	if (lseek(net_dev, 0, SEEK_SET) != 0)
+		die(1, "lseek: %s", PROC_NET_DEV_PATH);
+	bufsiz = read(net_dev, (void *) proc_net_buffer,
+		sizeof (proc_net_buffer));
+	if (bufsiz &lt; 0)
+		die(1, "read: %s", PROC_NET_DEV_PATH);
+	else if (bufsiz &lt; 200)
+		die(0, "%s: invalid format\n", PROC_NET_DEV_PATH);
+
+	/*
+	 * Validate if we have not previously done so
+	 */
+	if (! validated_format) {
+		if (strncmp(proc_net_buffer,
+		    "Inter-|   Receive                                   "
+		    "             |  Transmit\n"
+		    " face |bytes    packets errs drop fifo frame compressed"
+		    " multicast|bytes    packets errs drop fifo colls carrier"
+		    " compressed\n", 200) != 0)
+			die(0, "%s: invalid format\n",
+					PROC_NET_DEV_PATH);
+		else
+			validated_format++;
+	}
+
+	/* Initialise g_if_list */
+	init_if_list();
+	if_tail = NULL;
+
+	/* Terminate our string */
+	bufp = proc_net_buffer + 200;
+	buf_remain = bufsiz - 200;
+	bufp[buf_remain + 1] = '\0';
+
+	now = time(0);
+	skip_to_newline = 0;
+	g_nicdata_count = 0;
+	while (*bufp) {
+		if (skip_to_newline) {
+			/* Need to skip over previous data */
+			for (; *bufp; bufp++)
+				if (*bufp == '\n') {
+					bufp++;
+					break;
+			}
+			if (! *bufp)
+				break;
+		}
+		skip_to_newline = 1;
+
+		/* Get the interface name */
+		while (*bufp == ' ')
+			bufp++;
+		/* Check the format */
+		n = strcspn(bufp, ":");
+		if (n &gt;= sizeof (if_name))
+			die(0, "%s: interface name too long",
+				PROC_NET_DEV_PATH);
+		(void) strncpy(if_name, bufp, n);
+		if_name[n] = '\0';
+		/*
+		 * Skip interface if not specifically interested in it
+		 */
+		if (g_someif &amp;&amp; ! string_in_array(if_name, g_tracked)) {
+			continue;
+		}
+		/*
+		 * If g_nonlocal, skip "lo"
+		 */
+		if (g_nonlocal &amp;&amp; strcmp("lo", if_name) == 0) {
+			continue;
+		}
+
+		/* Scan in values */
+		bufp += n + 1;
+		ret = sscanf(bufp, "%llu %llu %llu %llu %llu %llu %llu"
+			" %llu %llu %llu %llu %llu %llu %llu %llu %llu\n",
+			&amp;ll[0], &amp;ll[1], &amp;ll[2], &amp;ll[3], &amp;ll[4], &amp;ll[5],
+			&amp;ll[6], &amp;ll[7], &amp;ll[8], &amp;ll[9], &amp;ll[10], &amp;ll[11],
+			&amp;ll[12], &amp;ll[13], &amp;ll[14], &amp;ll[15]);
+		if (ret != 16)
+			die(0, "%s: invalid format", PROC_NET_DEV_PATH);
+		/*
+		 * Skip interface if it has never seen a packet
+		 */
+		if (ll[1] == 0 &amp;&amp; ll[9] == 0)
+			continue;
+
+		/*
+		 * OK, we'll keep this one
+		 */
+		g_nicdata_count++;
+		nicp = find_nicdatap(if_name);
+		nicp-&gt;new.time = now;
+		nicp-&gt;new.rbytes = ll[0];
+		nicp-&gt;new.rpackets = ll[1];
+		nicp-&gt;new.wbytes = ll[8];
+		nicp-&gt;new.wpackets = ll[9];
+		nicp-&gt;new.sat = ll[2];
+		nicp-&gt;new.sat += ll[3];
+		nicp-&gt;new.sat += ll[11];
+		nicp-&gt;new.sat += ll[12];
+		nicp-&gt;new.sat += ll[13];
+		nicp-&gt;new.sat += ll[14];
+		nicp-&gt;new.speed = find_interface_speed(if_name);
+		/* Add it to the list */
+		if_tail = add_to_g_if_list(if_name, if_tail);
+		if_tail-&gt;nicp = nicp;
+	}
+}
+
+/*
+ * precision -	figure an optimal floating precision for a printf()
+ */
+static inline int
+precision(double value)
+{
+	if (value &lt; 100)
+		return (2);
+	else if (value &lt; 100000)
+		return (1);
+	return (0);
+}
+
+static inline int
+precision4(double value)
+{
+	if (value &lt; 10)
+		return (2);
+	else if (value &lt; 100)
+		return (1);
+	return (0);
+}
+
+/*
+ * print_stats - generate output
+ *
+ * This routine runs through the linked list of interfaces, prints out
+ * statistics where appropriate, then moves the "new" stats to the "old"
+ * stats, ready for next time.
+ */
+static void
+print_stats()
+{
+	struct nicdata *nicp;	/* ptr into g_nicdatap linked list */
+	double rbps;		/* read bytes per sec */
+	double wbps;		/* write bytes per sec */
+	double rkps;		/* read KB per sec */
+	double wkps;		/* write KB per sec */
+	double rpps;		/* read packets per sec */
+	double wpps;		/* write packets per sec */
+	double ravs;		/* read average packet size */
+	double wavs;		/* write average packet size */
+	double sats;		/* saturation value per sec */
+	double tdiff;		/* time difference between samples */
+	double util;		/* utilisation */
+	struct tm *times;	/* time struct */
+	char timestr[16];	/* time string */
+	struct if_list *ifp;	/* pointer for going through g_if_list */
+
+	for (ifp = g_if_list; ifp; ifp = ifp-&gt;next) {
+		nicp = ifp-&gt;nicp;
+		/* Calculate time difference */
+		if (nicp-&gt;old.time == 0)
+			/* Not initialised, so numbers will be since boot */
+			tdiff = nicp-&gt;new.time - g_boot_time;
+		else
+			tdiff = nicp-&gt;new.time - nicp-&gt;old.time;
+		if (tdiff == 0)
+			tdiff = 1;
+
+		/* Calculate per second values */
+		rbps = (nicp-&gt;new.rbytes - nicp-&gt;old.rbytes) / tdiff;
+		wbps = (nicp-&gt;new.wbytes - nicp-&gt;old.wbytes) / tdiff;
+		rpps = (nicp-&gt;new.rpackets - nicp-&gt;old.rpackets) / tdiff;
+		wpps = (nicp-&gt;new.wpackets - nicp-&gt;old.wpackets) / tdiff;
+		sats = (nicp-&gt;new.sat - nicp-&gt;old.sat) / tdiff;
+		rkps = rbps / 1024;
+		wkps = wbps / 1024;
+		if (rpps &gt; 0)
+			ravs = rbps / rpps;
+		else
+			ravs = 0;
+		if (wpps &gt; 0)
+			wavs = wbps / wpps;
+		else
+			wavs = 0;
+
+		/* Calculate utilisation */
+		if (nicp-&gt;new.speed &gt; 0) {
+			/*
+			 * the following has a mysterious "800", it is
+			 * 100 for the % conversion, and 8 for
+			 * bytes2bits.
+			 */
+			util = (rbps + wbps) * 800 / nicp-&gt;new.speed;
+			if (util &gt; 100)
+				util = 100;
+		} else
+			util = 0;
+
+		/* always print header if there are multiple NICs */
+		if (g_nicdata_count &gt; 1)
+			g_line += PAGE_SIZE;
+		else
+			g_line++;
+
+		/* Skip zero lines */
+		if (g_skipzero &amp;&amp; wpps == 0 &amp;&amp; rpps == 0)
+			continue;
+
+		/* Fetch time */
+		times = localtime(&amp;nicp-&gt;new.time);
+		(void) strftime(timestr, sizeof (timestr),
+				"%H:%M:%S", times);
+
+		/* Print output line */
+		(void) printf("%s %8s ", timestr, nicp-&gt;name);
+		if (g_style)
+			(void) printf("%14.3f %14.3f\n", rkps, wkps);
+		else
+			(void) printf("%7.*f %7.*f %7.*f %7.*f "
+				"%7.*f %7.*f %5.*f %6.*f\n",
+				precision(rkps), rkps,
+				precision(wkps), wkps,
+				precision(rpps), rpps,
+				precision(wpps), wpps,
+				precision(ravs), ravs,
+				precision(wavs), wavs,
+				precision4(util), util,
+				precision(sats), sats);
+		/* Save the current values for next time */
+		nicp-&gt;old = nicp-&gt;new;
+	}
+}
+
+/*
+ * print_header - print the header line.
+ */
+static void
+print_header(void)
+{
+#if DEBUG &gt; 1
+	(void) printf("&lt;&lt;nic_count = %d&gt;&gt;\n", g_nicdata_count);
+#endif
+	if (g_style)
+		(void) printf("%8s %8s %14s %14s\n",
+			"Time", "Int", "rKB/s", "wKB/s");
+	else
+		(void) printf(
+			"%8s %8s %7s %7s %7s %7s %7s %7s %5s %6s\n",
+			"Time", "Int", "rKB/s", "wKB/s", "rPk/s",
+			"wPk/s", "rAvs", "wAvs", "%Util", "Sat");
+}
+
+static unsigned long
+get_boot_time()
+{
+	char buf[64];
+	int uptime_fd, bufsiz, scanned;
+	unsigned long uptime;
+
+	uptime_fd = open(PROC_UPTIME, O_RDONLY, 0);
+	if (uptime_fd &lt; 0)
+		die(1, "error opening %s for read", PROC_UPTIME);
+	bufsiz = read(uptime_fd, buf, sizeof (buf) - 1);
+	if (bufsiz &lt; 0)
+		die(1, "read: %s", PROC_UPTIME);
+	buf[bufsiz] = '\0';
+	scanned = sscanf(buf, "%lu.", &amp;uptime);
+	if (scanned != 1)
+		die(0, "cannot get uptime from %s", PROC_UPTIME);
+	return (time(0) - uptime);
+}
+
+static void
+cont_handler(int sig_number)
+{
+	/* Re-set the signal handler */
+	(void) signal(sig_number, cont_handler);
+#if DEBUG &gt; 0
+	(void) fprintf(stderr, "&lt;&lt; caught SIGCONT &gt;&gt;\n");
+#endif
+	g_caught_cont = 1;
+}
+
+/*
+ * This routine uses sleep(3) &amp; usleep(3) to pause until then
+ */
+static inline void
+sleep_for(int millisec, struct timeval *now)
+{
+	int status;
+	int done = 0;
+	struct timeval then;
+	int us;
+
+	then.tv_sec = 0;
+	do {
+		status = poll(NULL, 0, millisec);
+		if (status &lt; 0) {
+			if (errno != EINTR) {
+				perror("poll");
+				exit(1);
+			}
+			/* Interrupted - we are not done yet */
+			if (then.tv_sec == 0) {
+				then.tv_sec = now-&gt;tv_sec + (millisec / 1000);
+				us = ((millisec % 1000) * 1000) + now-&gt;tv_usec;
+				if (us &gt; 1000000) {
+					/* Wrapped */
+					then.tv_sec++;
+					then.tv_usec = us - 1000000;
+				} else
+					then.tv_usec = us;
+			}
+			(void) gettimeofday(now, NULL);
+			millisec = (then.tv_sec - now-&gt;tv_sec) * 1000;
+			millisec += (then.tv_usec - now-&gt;tv_usec) / 1000;
+			if (millisec &lt;= 0)
+				done = 1;
+		} else
+			done = 1;
+	} while (! done);
+}
+
+/*
+ * split - Split a string of delimited fields, returning an array of char *
+ *
+ * NOTE: the input string gets modified by this routine
+ */
+static char **
+split(char *string, char *delim, int *nitems)
+{
+	int ndelim, i;
+	char *p;
+	char *lasts;
+	char **ptrs;
+
+	/* How many delimiters do we have? */
+	ndelim = 0;
+	for (p = string; *p; p++)
+		if (*p == *delim)
+			ndelim++;
+
+	/* We need that many ptrs + 1 (max) */
+	ptrs = calloc(ndelim + 1, sizeof (char *));
+	if (! ptrs)
+		die(1, "calloc");
+
+	/* Tokenize */
+	i = 0;
+	ptrs[i] = strtok_r(string, delim, &amp;lasts);
+	while (ptrs[i])
+		ptrs[++i] = strtok_r(NULL, delim, &amp;lasts);
+	*nitems = i;
+	/* Terminate pointer array */
+	ptrs[++i] = NULL;
+	return (ptrs);
+}
+
+/*
+ * Main Program
+ */
+int
+main(int argc, char **argv)
+{
+	/*
+	 * Variable Declaration
+	 */
+	int net_dev;		/* file descriptor for stats file */
+	int interval;		/* interval, secs */
+	int pause_m;		/* time to pause, milliseconds */
+	int loop_max;		/* max output lines */
+	int loop;		/* current loop number */
+	int option;		/* command line switch */
+	struct timeval start;	/* start point of an iteration */
+	struct timeval now;
+#if DEBUG &gt; 1
+	struct timeval debug_now;
+#endif
+	int max_ifs;		/* most if names that can be in -i optarg */
+	int tracked_ifs;
+
+	/* defaults */
+	interval = INTERVAL;
+	loop_max = LOOP_MAX;
+	g_line = PAGE_SIZE;
+	loop = 0;
+	g_style = 0;
+	g_skipzero = 0;
+	g_nonlocal = 0;
+	g_someif = 0;
+	g_forever = 0;
+	g_caught_cont = 0;
+
+	/*
+	 * Process arguments
+	 */
+	g_arg0 = argv[0];
+	while ((option = getopt(argc, argv, "hi:sS:zn")) != -1) {
+		switch (option) {
+		case 'h':
+			usage();
+			break;
+		case 'i':
+			g_tracked = split(optarg, ",", &amp;tracked_ifs);
+			g_someif = tracked_ifs &gt; 0;
+			break;
+		case 's':
+			g_style = 1;
+			break;
+		case 'z':
+			g_skipzero = 1;
+			break;
+		case 'n':
+			g_nonlocal = 1;
+			break;
+		case 'S':
+			init_if_speed_list(optarg);
+			break;
+		default:
+			usage();
+		}
+	}
+	argv += optind;
+	if ((argc - optind) &gt;= 1) {
+		interval = atoi(*argv);
+		if (interval == 0)
+			usage();
+		argv++;
+		if ((argc - optind) &gt;= 2)
+			loop_max = atoi(*argv);
+		else
+			g_forever = 1;
+	}
+
+	/* Open the file we got stats from (in Linux) */
+	net_dev = open(PROC_NET_DEV_PATH, O_RDONLY, 0);
+	if (net_dev &lt; 0)
+		die(1, "open: %s", PROC_NET_DEV_PATH);
+
+	/*
+	 * Get boot-time
+	 */
+	g_boot_time = get_boot_time();
+
+	/* Get time when we started */
+	if (gettimeofday(&amp;start, (void *) NULL) &lt; 0)
+		die(1, "gettimeofday");
+
+	/*
+	 * Set up signal handling
+	 */
+	(void) signal(SIGCONT, cont_handler);
+
+	/*
+	 * Main Loop
+	 */
+	for (;;) {
+		/* Print header line */
+		if (g_line &gt;= PAGE_SIZE) {
+			g_line = 0;
+			print_header();
+		}
+
+#if DEBUG &gt; 1
+		if (gettimeofday(&amp;debug_now, (void *) NULL) &lt; 0) {
+			perror("gettimeofday");
+			exit(2);
+		}
+		fprintf(stderr, "        pre-op = %ld.%06ld\n",
+			debug_now.tv_sec, debug_now.tv_usec);
+#endif
+
+		/*
+		 * Get the latest data
+		 */
+		update_stats(net_dev);
+
+		/* Check we matched some NICs */
+		if (g_nicdata_count &lt;= 0)
+			die(0, "no matching interface");
+
+		/*
+		 * Print statistics
+		 */
+		print_stats();
+
+		/* end point */
+		if (!g_forever)
+			if (++loop == loop_max) break;
+
+		/* flush output */
+		if (fflush(stdout) != 0)
+			die(1, "fflush(stdout)");
+
+		/* have a kip */
+		(void) gettimeofday(&amp;now, NULL);
+		start.tv_sec += interval;
+		pause_m = (start.tv_sec - now.tv_sec) * 1000;
+		pause_m += (start.tv_usec - now.tv_usec) / 1000;
+		if (pause_m &lt;= 0 || pause_m &lt; (interval * 250))
+			if (g_forever || g_caught_cont) {
+				/* Reset our cadence */
+				start.tv_sec = now.tv_sec + interval;
+				start.tv_usec = now.tv_usec;
+				pause_m = interval * 1000;
+			} else {
+				/*
+				 * The case for better observability
+				 *
+				 * If we got here, then the time
+				 * between the output we just did, and
+				 * the scheduled time for the next
+				 * output is &lt; 1/4 of our requested
+				 * interval AND the number of
+				 * intervals has been requested AND we
+				 * have never caught a SIGCONT (so we
+				 * have never been suspended).  In
+				 * this case, we'll try to stay to the
+				 * desired cadence, but we will pause
+				 * for 1/2 the normal interval this
+				 * time.
+				 */
+				pause_m = interval * 500;
+			}
+		if (pause_m &gt; 0)
+			sleep_for(pause_m, &amp;now);
+		/* pause_until(&amp;start_tv); */
+	}
+
+	return (0);
+}
+</PRE></BODY></HTML>

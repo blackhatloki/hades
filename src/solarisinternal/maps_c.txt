@@ -1,0 +1,118 @@
+#include <stdio.h>
+#include <sys/types.h>
+#include <sys/fcntl.h>
+#include <sys/mman.h>
+#include <sys/param.h>
+#include <sys/shm.h>
+
+main()
+{
+
+	int fd, dz;
+	off_t off;
+	caddr_t addr;
+	size_t msize = 128 * 8192;
+	char *p;
+	char c;
+	int i;
+	void * mapaddr;
+	struct memcntl_mha mha;
+	int ismid;
+	size_t ismsize = 8 * 1024 * 1024;
+
+	/* Set pagesize to 4MB for heap */
+	mha.mha_cmd = MHA_MAPSIZE_BSSBRK;
+	mha.mha_flags = 0;
+	mha.mha_pagesize = 4 * 1024 * 1024;
+	memcntl(NULL, 0, MC_HAT_ADVISE, (char *)&mha, 0, 0);
+
+	addr = malloc(16 * 1024 * 1024);
+
+	/* Fault in pages */
+	for (p = addr; p < addr + (8 * 1024 * 1024); p++) {
+		c = *p;
+	}
+
+	dz = open("/dev/zero", O_RDWR, 0);
+	fd = open("testfile", O_RDWR, 0);
+
+	off = 0;
+	off &= PAGEMASK;
+		
+	/* MAP_SHARED */
+	mapaddr = (void *)0x3000000;
+	if ((addr = mmap(mapaddr, msize, PROT_WRITE|PROT_READ, 
+	    MAP_SHARED | MAP_FIXED, fd, off)) == NULL) {
+		perror("mmap MAP_SHARED failed");
+		exit(1);
+	}
+	/* Fault in pages */
+	for (p = addr; p < addr + msize; p++) {
+		c = *p;
+	}
+
+	/* MAP_PRIVATE */
+	if ((addr = mmap(0x4000000, msize, PROT_WRITE|PROT_READ, 
+	    MAP_PRIVATE | MAP_FIXED, fd, off)) == NULL) {
+		perror("mmap MAP_PRIVATE failed");
+		exit(1);
+	}
+	/* COW half the pages */
+	for (p = addr; p < addr + msize / 2; p++) {
+		*p = 0;
+	}
+
+	/* MAP_PRIVATE | MAP_NORESERVE */
+	if ((addr = mmap(0x5000000, msize, PROT_WRITE|PROT_READ, 
+	    MAP_PRIVATE | MAP_NORESERVE | MAP_FIXED, fd, off)) == NULL) {
+		perror("mmap MAP_PRIVATE | MAP_NORESERVE failed");
+		exit(1);
+	}
+	/* COW half the pages */
+	for (p = addr; p < addr + msize / 2; p++) {
+		*p = 0;
+	}
+
+	/* MAP_ANON */
+	if ((addr = mmap(0x6000000, msize, PROT_WRITE|PROT_READ, 
+	    MAP_PRIVATE | MAP_ANON | MAP_FIXED, -1, off)) == NULL) {
+		perror("mmap MAP_ANON failed");
+		exit(1);
+	}
+	/* Fault in pages */
+	for (p = addr; p < addr + msize; p++) {
+		c = *p;
+	}
+
+	/* MAP_ANON | MAP_NORESERVE */
+	if ((addr = mmap(0x7000000, msize, PROT_WRITE|PROT_READ, 
+	    MAP_PRIVATE | MAP_ANON | MAP_FIXED | MAP_NORESERVE,
+	    -1, off)) == NULL) {
+		perror("mmap MAP_ANON | MAP_NORESERVE failed");
+		exit(1);
+	}
+	/* Fault in pages */
+	for (p = addr; p < addr + msize / 2; p++) {
+		c = *p;
+	}
+     	 
+
+	/* Create ISM segment */
+	ismid = shmget(0, ismsize, IPC_CREAT | 0666);
+	shmat(ismid, 0x0000000, SHM_SHARE_MMU);
+
+
+	/* Create DISM segment */
+	ismid = shmget(0, ismsize, IPC_CREAT | 0666);
+	addr = shmat(ismid, 0x0000000, SHM_PAGEABLE);
+	
+	c = *addr;
+
+	/* Create DISM locked segment */
+	ismid = shmget(0, ismsize, IPC_CREAT | 0666);
+	addr = shmat(ismid, 0x0000000, SHM_PAGEABLE);
+	mlock(addr, ismsize);
+
+	pause();
+
+}

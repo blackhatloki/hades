@@ -1,0 +1,1 @@
+/home/teague/src/samba-4.6.1/python/samba/tests/samba_tool/user_check_password_script.py

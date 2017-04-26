@@ -1,0 +1,64 @@
+#!/usr/perl5/bin/perl -w
+
+use strict;
+use Sun::Solaris::Kstat;
+use POSIX qw(uname strftime);
+use POSIX qw(sysconf _SC_PAGESIZE);
+
+#
+# Script from Solaris Internals Book http://www.solarisinternals.com
+# (c) Richard McDougall and James Mauro
+#
+
+my ($interval, $count) = @ARGV;
+my ($kstats, $now, $then, $mb);
+$interval = 5 if (! defined($interval) || $interval < 1);
+$count = -1 if (! $count);
+
+# Get the system's page size and check that it is a power of two.
+my $pagesize = sysconf(_SC_PAGESIZE);
+unless (defined $pagesize and $pagesize =~ /^\d+$/ and $pagesize > 0) {
+  die "$0: internal error: sysconf(_SC_PAGESIZE) did not return an ",
+      "integer > 0.\n";
+}
+$mb = (1024 * 1024) / $pagesize;
+
+$SIG{INT} = $SIG{QUIT} = $SIG{HUP} = sub { $count = 0; };
+
+my $ks = Sun::Solaris::Kstat->new();
+
+# Save initial stats values
+print("prtmem started on ", strftime("%d/%m/%Y %T", localtime()),
+      " on ", (uname())[1], ", sample interval $interval seconds\n\n");
+
+print "                   Total      Kernel       Delta        Free       Delta\n";
+
+# Loop the required number of times
+while ($count == -1 || $count-- > 0)
+{
+   my $ts = strftime("%T", localtime());
+
+   # Get and copy the new stats values
+   $ks->update();
+   $kstats = $ks->{unix};
+   %{$now} = %{$kstats->{0}{system_pages}};
+
+   # Skip unless we have both sets of stats
+   if ($then) {
+        my $delta = $now->{snaptime} - $then->{snaptime};
+	printf("$ts    %12d%12d%12d%12d%12d\n", 
+		$now->{physmem} / $mb,
+		$now->{pp_kernel} / $mb, ($now->{pp_kernel} - $then->{pp_kernel}) / $mb,
+		$now->{pagesfree} / $mb, ($now->{pagesfree} - $then->{pagesfree}) / $mb
+		);
+   }
+
+   # Save the new stats
+   $then = $now;
+   $now = {};
+
+   # Wait for a bit, then update the stats
+   sleep($interval);
+}
+
+

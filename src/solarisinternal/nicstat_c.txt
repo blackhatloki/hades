@@ -1,0 +1,1072 @@
+/*
+ * nicstat - print network traffic, Kb/s read and written. Solaris 8+.
+ *	"netstat -i" only gives a packet count, this program gives Kbytes.
+ *
+ * 14-Feb-2007, Tim.Cook@sun.com, based on:
+ *
+ * 25-Jul-2006, ver 0.92  (check for new versions, http://www.brendangregg.com)
+ *
+ * COMPILE:
+ * 	cc -lkstat -lrt -o nicstat nicstat.c
+ *
+ * USAGE: nicstat [-hsz] [-i int[,int...]] | [interval [count]]
+ *
+ *          -h              # help
+ *          -i interface    # track interface only
+ *          -n	            # show non-local interfaces only (exclude lo0)
+ *          -s              # summary output
+ *          -z              # skip zero value lines
+ *     eg,
+ *        nicstat           # print summary since boot only
+ *        nicstat 1         # print every 1 second
+ *        nicstat 1 5       # print 5 times only
+ *        nicstat -z 1      # print every 1 second, skip zero lines
+ *        nicstat -i hme0 1 # print hme0 only every 1 second
+ *
+ * This prints out the Kb/s transferred for all the network cards (NICs),
+ *  including packet counts and average sizes. The first line is the historic
+ *  data since boot.
+ *
+ * FIELDS:
+ *		Int	Interface
+ *		rKB/s	read KBytes/s
+ *		wKB/s	write KBytes/s
+ *		rPk/s	read Packets/s
+ *		wPk/s	write Packets/s
+ *		rAvs	read Average size, bytes
+ *		wAvs	write Average size, bytes
+ *		%Util	%Utilisation (r+w/ifspeed)
+ *		Sat	Saturation (defer, nocanput, norecvbuf, noxmtbuf)
+ *
+ * NOTE: Some unusual network cards may not provide all the details to KStat,
+ *  (or provide different symbols). Check for newer versions of this program.
+ *
+ * Utilisation is based on bytes transferred divided by speed of the interface.
+ *  It should be impossible to reach 100% as there are overheads due to bus
+ *  negotiation and timing.  If the kstat for an interface sets "link_duplex"
+ *  to 2 for full-duplex, utilisation is based on the higher of rKB or wKB.
+ *
+ * Saturation is determined by counting read and write errors caused by the
+ *  interface running at saturation. This approach is not ideal, and the value
+ *  reported is often lower than it should be (eg, 0.0). Reading the rKB/s and
+ *  wKB/s fields may be more useful.
+ *
+ *
+ * SEE ALSO:
+ *	nicstat					# the Perl version
+ *	kstat -n hme0 [interval [count]]	# or qfe0, ...
+ *	netstat -iI hme0 [interval [count]]
+ *	se netstat.se [interval]		# SE Toolkit
+ *	se nx.se [interval]			# SE Toolkit
+ *
+ * Standard Disclaimer: This is freeware, use at your own risk.
+ *
+ * COPYRIGHT: Copyright (c) 2005 Brendan Gregg.
+ *
+ * AUTHOR: Brendan Gregg  [Sydney, Australia].
+ *
+ * HISTORY:
+ *	07-Jan-2005	Brendan Gregg	Created this, based on perl version
+ *	07-Jan-2005	   "      "	added summary style (Peter Tribble)
+ *	03-Jun-2005	Tim.Cook@sun.com   modified "nocanput" lookup for ce
+ *	25-Jul-2006	Tim.Cook@sun.com   use nanosleep(3),gethrtime(3) for
+ *				accurate period; use fflush(stdout)
+ *	 9-Aug-2006	Tim.Cook@sun.com   Extensive re-write to use ioctl's
+ *				to get interface list, plus we now get lo0,
+ *				plus use "KB" for kilobytes
+ *	17-Aug-2006	Tim.Cook@sun.com   Added "-n" flag, and precision()
+ *				function (from Brendan)
+ */
+
+#pragma ident	"@(#)nicstat.c	1.14	09/08/14"
+
+#ifndef	DEBUG
+#define	DEBUG	0
+#endif
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <stropts.h>
+#include <net/if.h>
+#include <sys/sockio.h>
+#include <kstat.h>
+#include <sys/time.h>
+#include <libgen.h>
+#include <errno.h>
+#include <stdarg.h>
+#include <signal.h>
+
+extern int errno;
+
+#ifndef LIFC_ALLZONES	/* Comes from <net/if.h> in 5.10 & later */
+#define	LIFC_ALLZONES	0x08
+#endif
+
+#define	PAGE_SIZE 20
+#define	INTERVAL 1
+#define	LOOP_MAX 1
+
+/*
+ * Interface stats
+ */
+struct nic_stats {
+	struct timeval tv;		/* tv_sec, tv_usec */
+	uint64_t rbytes;		/* total read bytes */
+	uint64_t wbytes;		/* total written bytes */
+	uint64_t rpackets;		/* total read packets */
+	uint64_t wpackets;		/* total written packets */
+	uint64_t speed;			/* speed of interface */
+	uint64_t sat;			/* saturation value */
+	uint32_t duplex;		/* half = 1; full = 2 */
+};
+struct nicdata {
+	char *name;		/* interface name (e.g. "lo0") */
+	struct nicdata *next;	/* pointer to next */
+	kstat_t *ksp;		/* kstat pointer */
+	struct nic_stats old;	/* stats from previous lookup */
+	struct nic_stats new;	/* stats from current lookup */
+};
+
+struct if_list {
+	struct if_list *next;
+	char *name;
+};
+/* Known list of interfaces */
+static struct if_list *g_known_if_list = NULL; /* Ptr to list */
+static int g_known_if_count = -1;	/* number of if's */
+
+/*
+ * This will contain everything we need to know about each interface, and
+ * will be dynamically allocated.
+ */
+static struct nicdata *g_nicdatap = NULL;
+
+static int g_nicdata_count = 0;		/* number of if's we are tracking */
+static int g_style;			/* output style */
+static int g_skipzero;			/* skip zero value lines */
+static int g_nonlocal;			/* list only non-local (exclude lo0) */
+static int g_someif;			/* trace some interfaces only */
+static int g_forever;			/* run forever */
+static char **g_tracked;		/* tracked interfaces */
+static int g_line;			/* output line counter */
+static int g_sock;			/* Socket for interface ioctl's */
+static kstat_ctl_t *g_kc;		/* kstat chain pointer */
+static char *g_arg0;			/* ptr to argv[0] */
+static int g_caught_cont;		/* caught SIGCONT - were suspended */
+
+/*
+ * die - print stderr message and exit.
+ *
+ * This subroutine prints an error message and exits with a non-zero
+ * exit status.
+ */
+static void
+die(int use_errno, char *format, ...)
+{
+	va_list ap;
+	char *error_str;
+
+	(void) fprintf(stderr, "%s: ", g_arg0);
+	if (use_errno) {
+		error_str = strerror(errno);
+		if (! error_str)
+			error_str = strerror(0);
+	}
+	va_start(ap, format);
+	(void) vfprintf(stderr, format, ap);
+	va_end(ap);
+	if (use_errno)
+		(void) fprintf(stderr, ": %s\n", error_str);
+	else
+		(void) fputc('\n', stderr);
+	exit(2);
+}
+
+/*
+ * usage - print a usage message and exit.
+ */
+static void
+usage(void)
+{
+	(void) fprintf(stderr,
+	    "USAGE: nicstat [-hsz] [-i int[,int...]] | [interval [count]]\n"
+	    "\n"
+	    "         -h              # help\n"
+	    "         -i interface    # track interface only\n"
+	    "         -n              # show non-local interfaces only"
+					" (exclude lo0)\n"
+	    "         -s              # summary output\n"
+	    "         -z              # skip zero value lines\n"
+	    "    eg,\n");
+	(void) fprintf(stderr,
+	    "       nicstat           # print summary since boot only\n"
+	    "       nicstat 1         # print every 1 second\n"
+	    "       nicstat 1 5       # print 5 times only\n"
+	    "       nicstat -z 1      # print every 1 second, skip zero lines\n"
+	    "       nicstat -i hme0 1 # print hme0 only every 1 second\n");
+	exit(1);
+}
+
+/*
+ * new_string - simply strdup(3), but terminate on failure
+ */
+static char *
+new_string(char *s)
+{
+	char *new;
+
+	new = strdup(s);
+	if (! new)
+		die(1, "strdup", g_arg0);
+	return (new);
+}
+
+/*
+ * Return floating difference in timevals
+ */
+static double
+tv_diff(struct timeval *new, struct timeval *old)
+{
+	double new_d, old_d;
+
+	new_d = (double) new->tv_sec;
+	new_d += new->tv_usec / 1000000.0;
+	old_d = (double) old->tv_sec;
+	old_d += old->tv_usec / 1000000.0;
+	return (new_d - old_d);
+}
+
+/*
+ * Check interface list to see if an interface is in it
+ */
+static int
+interface_in_list(char *interface, struct nicdata *listp)
+{
+	while (listp) {
+		if (strcmp(interface, listp->name) == 0)
+			return (1);
+		listp = listp->next;
+	}
+	return (0);
+}
+
+/*
+ * update_known_if_list - refresh g_known_* globals after lookup of if's
+ *
+ * This looks up if's on the system via ioctl's and updates:
+ *	g_known_if_list		Ptr to list
+ *	g_known_if_count	Number of if's
+ * Returns 1 if we saw a change, 0 if no change
+ */
+static int
+update_known_if_list()
+{
+	struct lifnum if_num;		/* Includes # of if's */
+	struct lifconf if_conf;		/* Includes ptr to list of names */
+
+	static struct ifreq *current_lif = 0;
+	struct lifreq *if_reqp;
+	int current_lif_size, current_lif_count, if_list_count, i,
+		changed;
+	struct if_list *if_listp, *known_if_listp;
+	struct if_list *if_list_head, *if_list_tail;
+
+	/*
+	 * Get number of interfaces on system
+	 */
+	if_num.lifn_family = AF_UNSPEC;
+	if (g_nonlocal)
+		if_num.lifn_flags =
+			LIFC_NOXMIT | LIFC_ALLZONES | LIFC_EXTERNAL_SOURCE;
+	else
+		if_num.lifn_flags =
+			LIFC_NOXMIT | LIFC_ALLZONES;
+	if (ioctl(g_sock, SIOCGLIFNUM, &if_num) < 0)
+		die(1, "ioctl(IFNUM)");
+
+	/* Allocate my struct ifreq array buffer */
+	current_lif_size = (if_num.lifn_count + 1) * sizeof (struct lifreq);
+	current_lif = realloc(current_lif, current_lif_size);
+	if (! current_lif)
+		die(1, "realloc");
+
+	/* Get the current interface list via the ioctl() */
+	if_conf.lifc_family = AF_UNSPEC;
+	if_conf.lifc_flags = if_num.lifn_flags;
+	if_conf.lifc_len = current_lif_size;
+	if_conf.lifc_buf = (caddr_t) current_lif;
+	if (ioctl(g_sock, SIOCGLIFCONF, &if_conf) < 0)
+		die(1, "ioctl(IFCONF)");
+	current_lif_size = if_conf.lifc_len;
+	current_lif_count = if_conf.lifc_len / sizeof (struct lifreq);
+
+	/*
+	 * Loop through entries in lifc_req, making a list of interfaces
+	 */
+	if_reqp = if_conf.lifc_req;
+	if_list_count = 0;
+	if_list_head = NULL;
+	if_list_tail = NULL;
+#if DEBUG
+	(void) fprintf(stderr, "<< IFCONF interfaces:");
+#endif
+	for (i = 0; i < current_lif_count; i++, if_reqp++) {
+#if DEBUG
+		(void) fprintf(stderr, " %s", if_reqp->lifr_name);
+#endif
+		if_listp = calloc(1, sizeof (struct if_list));
+		if (! if_listp)
+			die(1, "calloc");
+		if_listp->name = new_string(if_reqp->lifr_name);
+
+		if (if_list_tail) {
+			/* Add to tail of if_list */
+			if_list_tail->next = if_listp;
+		} else {
+			/* First on the list */
+			if_list_head = if_listp;
+		}
+		if_list_tail = if_listp;
+		if_list_count++;
+	}
+#if DEBUG
+	(void) fprintf(stderr, " >>\n");
+#endif
+
+	/*
+	 * We need to know if the interface list has changed
+	 */
+	changed = 0;
+	if (if_list_count == g_known_if_count) {
+		/*
+		 * Loop through the lists, comparing them
+		 */
+		if_listp = if_list_head;
+		known_if_listp = g_known_if_list;
+		while (if_listp) {
+			if (strcmp(if_listp->name, known_if_listp->name)
+			    == 0) {
+				/* Move pointers to next in the list */
+				if_listp = if_listp->next;
+				known_if_listp = known_if_listp->next;
+			} else {
+				changed = 1;
+				break;
+			}
+		}
+	} else
+		changed = 1;
+	if (changed) {
+		/* We need to keep the new and clean up the old list */
+		if_listp = g_known_if_list;		/* To clean */
+		g_known_if_list = if_list_head;
+		g_known_if_count = if_list_count;
+	} else {
+		/* We can keep the old and clean up the list we just made */
+		if_listp = if_list_head;		/* To clean */
+	}
+	while (if_listp) {
+		if_list_tail = if_listp->next;	/* save ptr to next */
+		free(if_listp->name);
+		free(if_listp);
+		if_listp = if_list_tail;
+	}
+
+	/* All done, time to go */
+	return (changed);
+}
+
+/*
+ * string_in_array - return true if str is found in array
+ */
+static int
+string_in_array(char *str, char **array)
+{
+	char **p;
+
+	for (p = array; *p; p++)
+		if (strcmp(str, *p) == 0)
+			return (1);
+	return (0);
+}
+
+/*
+ * reclaim_nicdata - reclaim's a struct nicdata * from our global list
+ *
+ * Return a struct nicdata pointer; if it is found in the global list; and
+ * also remove it from the list (we are in the process of re-building the
+ * list).  Modifies g_nicdatap.
+ */
+static struct nicdata *
+reclaim_nicdata(char *if_name)
+{
+	struct nicdata *matchp, *prevp;
+
+	prevp = NULL;
+	for (matchp = g_nicdatap; matchp; matchp = matchp->next) {
+		/* Check for a match */
+		if (strcmp(matchp->name, if_name) == 0) {
+			if (prevp)
+				/* Splice head of list to tail of list */
+				prevp->next = matchp->next;
+			else
+				/* We are at the head */
+				g_nicdatap = matchp->next;
+			/* Disassociate match with the tail of the list */
+			matchp->next = NULL;
+			return (matchp);
+		}
+		prevp = matchp;
+	}
+	return (NULL);
+}
+
+/*
+ * fetch64 - return a uint64_t value from kstat.
+ *
+ * The arguments are a kstat pointer, the value name,
+ * and a default value in case the lookup fails.
+ */
+static uint64_t
+fetch64(kstat_t *ksp, char *value64, uint64_t def)
+{
+	kstat_named_t *knp;	/* Kstat named pointer */
+
+	/* try a lookup and return */
+	if ((knp = kstat_data_lookup(ksp, value64)) != NULL)
+		return (knp->value.ui64);
+	return (def);
+}
+
+/*
+ * fetch32 - return a uint32_t value from kstat.
+ *
+ * The arguments are a kstat pointer, the value name,
+ * and a default value in case the lookup fails.
+ */
+static uint32_t
+fetch32(kstat_t *ksp, char *value, uint32_t def)
+{
+	kstat_named_t *knp;	/* Kstat named pointer */
+
+	/* try a lookup and return */
+	if ((knp = kstat_data_lookup(ksp, value)) != NULL)
+		return (knp->value.ui32);
+	return (def);
+}
+
+/*
+ * fetch6432 - return a uint64_t or a uint32_t value from kstat.
+ *
+ * The arguments are a kstat pointer, a potential ui64 value name,
+ * a potential ui32 value name, and a default value in case both
+ * lookup fails. The ui64 value is attempted first.
+ */
+static uint64_t
+fetch6432(kstat_t *ksp, char *value64, char *value, uint64_t def)
+{
+	kstat_named_t *knp;	/* Kstat named pointer */
+
+	/* try lookups and return */
+	if ((knp = kstat_data_lookup(ksp, value64)) != NULL)
+		return (knp->value.ui64);
+	if ((knp = kstat_data_lookup(ksp, value)) != NULL)
+		return (knp->value.ui32);
+	return (def);
+}
+
+/*
+ * fetch_nocanput - return nocanput value, whose name(s) are driver-dependent.
+ *
+ * Most drivers have a kstat "nocanput", but the ce driver
+ * at least has "rx_nocanput" and "tx_nocanput"
+ */
+static uint32_t
+fetch_nocanput(kstat_t *ksp, uint32_t def)
+{
+	kstat_named_t *knp;	/* Kstat named pointer */
+	uint32_t sum;
+
+	/* Check "nocanput" first */
+	if ((knp = kstat_data_lookup(ksp, "nocanput")) != NULL) {
+		return (knp->value.ui32);
+	} else {
+		if ((knp = kstat_data_lookup(ksp, "rx_nocanput")) != NULL) {
+			sum = knp->value.ui32;
+			if ((knp = kstat_data_lookup(ksp, "tx_nocanput"))
+			    != NULL) {
+				sum += knp->value.ui32;
+				return (sum);
+			}
+		}
+	}
+	return (def);
+}
+
+/*
+ * fetch_boot_time - return the boot time in secs.
+ *
+ * This takes a kstat control pointer and looks up the boot time
+ * from unix:0:system_misc:boot:time. If found, this is returned,
+ * else 0.
+ */
+static time_t
+fetch_boot_time(kstat_ctl_t *kc)
+{
+	kstat_t *ksp;			/* Kstat struct pointer */
+	kstat_named_t *knp;		/* Kstat named pointer */
+	static time_t boot_time = 0;	/* Cache it if we can */
+
+	if (boot_time != 0)
+		return (boot_time);
+	if ((ksp = kstat_lookup(kc, "unix", 0, "system_misc")) == NULL)
+		die(1, "kstat_lookup: unix:0:system_misc");
+	if ((kstat_read(kc, ksp, NULL) != -1) &&
+	    ((knp = kstat_data_lookup(ksp, "boot_time")) != NULL))
+		/* summary since boot */
+		boot_time = knp->value.ui32;
+	/* This will be zero if kstat_data_lookup() failed */
+	return (boot_time);
+}
+
+/*
+ * update_nicdata_list - update global linked list (where necessary)
+ *
+ * - Check if the list of known if's has changed
+ *     - If so, re-build our linked list of stuff
+ *     - If not, check for kstat_chain_update
+ *         - If so, update kstat pointers
+ */
+static void
+update_nicdata_list()
+{
+	kid_t kc_id;
+	kstat_t *ksp;
+	struct nicdata *new_nicdatap, *old_nicdatap;
+	struct nicdata *new_headp, *new_tailp;
+	struct if_list *if_listp;
+
+	/* Check the list of known interfaces */
+	if (update_known_if_list()) {
+		/*
+		 * List has changed - (Re)build our linked list of interface
+		 * structures & pointers
+		 */
+		/*
+		 * It is likely the kstat_chain has been updated, so lets
+		 * make sure we have the latest
+		 */
+		kc_id = kstat_chain_update(g_kc);
+		if (kc_id < 0)
+			die(1, "kstat_chain_update");
+#if DEBUG
+		if (kc_id > 0)
+			(void) fprintf(stderr, "<< kstat chain updated >>\n");
+		(void) fprintf(stderr, "<< if list changed\n   to: ");
+#endif
+		old_nicdatap = g_nicdatap;
+		new_headp = NULL;
+		new_tailp = NULL;
+		g_nicdata_count = 0;
+		for (if_listp = g_known_if_list;
+		    if_listp;
+		    if_listp = if_listp->next) {
+			/*
+			 * Skip interface if it is virtual
+			 */
+			if (strchr(if_listp->name, ':'))
+				continue;
+			/*
+			 * Skip interface if it is already in the list - we
+			 * can get it more than once if plumbed for IPv4 and
+			 * IPv6 for example.
+			 */
+			if (interface_in_list(if_listp->name, new_headp))
+				continue;
+			/*
+			 * Skip interface if we can not find kstats for it
+			 */
+			ksp = kstat_lookup(g_kc, NULL, -1, if_listp->name);
+			if (! ksp)
+				continue;
+			/*
+			 * Skip interface if "-i" was used, and it is not
+			 * a matching interface
+			 */
+			if (g_someif &&
+			    ! string_in_array(if_listp->name, g_tracked))
+				continue;		/* Skip this one */
+			/*
+			 * OK - this one's a keeper
+			 */
+#if DEBUG
+			(void) fprintf(stderr, "%s ", if_listp->name);
+#endif
+			g_nicdata_count++;
+			/*
+			 * If we have collected stats in the past for this
+			 * interface, we need to keep them
+			 */
+			new_nicdatap = reclaim_nicdata(if_listp->name);
+			if (! new_nicdatap) {
+				/*
+				 * Did not reclaim, so initialise - use
+				 * calloc() so we get all zeroes
+				 */
+				new_nicdatap = calloc(1,
+					sizeof (struct nicdata));
+				if (! new_nicdatap)
+					die(1, "calloc");
+				new_nicdatap->name =
+					new_string(if_listp->name);
+				/*
+				 * This means that whenever we report on an
+				 * interface for the first time, we will show
+				 * average since boot
+				 */
+				new_nicdatap->old.tv.tv_sec =
+					fetch_boot_time(g_kc);
+				new_nicdatap->old.tv.tv_usec = 0;
+			}
+			/* Use the new kstat pointer we got earlier */
+			new_nicdatap->ksp = ksp;
+			/* Add it to the new list */
+			if (new_tailp)
+				new_tailp->next = new_nicdatap;
+			else
+				/* First on the list */
+				new_headp = new_nicdatap;
+			new_tailp = new_nicdatap;
+		}
+#if DEBUG
+		(void) fprintf(stderr, ">>\n");
+#endif
+		/* Clean up any left in the old list */
+		new_nicdatap = g_nicdatap;
+		while (new_nicdatap) {
+			old_nicdatap = new_nicdatap;
+			new_nicdatap = new_nicdatap->next;
+			free(old_nicdatap->name);
+			free(old_nicdatap);
+		}
+		/* Save the new list we just built in our global pointer */
+		g_nicdatap = new_headp;
+		/*	} else { */
+	}
+}
+
+
+/*
+ * update_stats - update stats for interfaces we are tracking
+ */
+static void
+update_stats()
+{
+	struct nicdata *nicp;
+	struct timeval now_tv;
+
+	(void) gettimeofday(&now_tv, NULL);
+	for (nicp = g_nicdatap; nicp; nicp = nicp->next) {
+		if (kstat_read(g_kc, nicp->ksp, NULL) < 0)
+			die(1, "kstat_read");
+		/* Save network values */
+		nicp->new.tv.tv_sec = now_tv.tv_sec;
+		nicp->new.tv.tv_usec = now_tv.tv_usec;
+		nicp->new.rbytes =
+			fetch6432(nicp->ksp, "rbytes64", "rbytes", 0);
+		nicp->new.wbytes =
+			fetch6432(nicp->ksp, "obytes64", "obytes", 0);
+		nicp->new.rpackets =
+			fetch6432(nicp->ksp, "ipackets64", "ipackets", 0);
+		nicp->new.wpackets =
+			fetch6432(nicp->ksp, "opackets64", "opackets", 0);
+		nicp->new.duplex = fetch32(nicp->ksp, "link_duplex", 0);
+		nicp->new.sat = fetch32(nicp->ksp, "defer", 0);
+		nicp->new.sat += fetch_nocanput(nicp->ksp, 0);
+		nicp->new.sat += fetch32(nicp->ksp, "norcvbuf", 0);
+		nicp->new.sat += fetch32(nicp->ksp, "noxmtbuf", 0);
+		/* if the speed can't be fetched, this makes %util 0.0 */
+		nicp->new.speed = fetch64(nicp->ksp, "ifspeed", 1LL << 48);
+	}
+}
+
+/*
+ * precision -	figure an optimal floating precision for a printf()
+ */
+static inline int
+precision(double value)
+{
+	if (value < 100)
+		return (2);
+	else if (value < 100000)
+		return (1);
+	return (0);
+}
+
+static inline int
+precision4(double value)
+{
+	if (value < 10)
+		return (2);
+	else if (value < 100)
+		return (1);
+	return (0);
+}
+
+/*
+ * print_stats - generate output
+ *
+ * This routine runs through the linked list of interfaces, prints out
+ * statistics where appropriate, then moves the "new" stats to the "old"
+ * stats, ready for next time.
+ */
+static void
+print_stats()
+{
+	struct nicdata *nicp;	/* ptr into g_nicdatap linked list */
+	double rbps;		/* read bytes per sec */
+	double wbps;		/* write bytes per sec */
+	double rkps;		/* read KB per sec */
+	double wkps;		/* write KB per sec */
+	double rpps;		/* read packets per sec */
+	double wpps;		/* write packets per sec */
+	double ravs;		/* read average packet size */
+	double wavs;		/* write average packet size */
+	double sats;		/* saturation value per sec */
+	double tdiff;		/* time difference between samples */
+	double util;		/* utilisation */
+	struct tm *times;	/* time struct */
+	char timestr[16];	/* time string */
+
+	for (nicp = g_nicdatap; nicp; nicp = nicp->next) {
+		/* Calculate time difference */
+		tdiff = tv_diff(&nicp->new.tv, &nicp->old.tv);
+		if (tdiff == 0)
+			tdiff = 1;
+
+		/* Calculate per second values */
+		rbps = (nicp->new.rbytes - nicp->old.rbytes) / tdiff;
+		wbps = (nicp->new.wbytes - nicp->old.wbytes) / tdiff;
+		rpps = (nicp->new.rpackets - nicp->old.rpackets) / tdiff;
+		wpps = (nicp->new.wpackets - nicp->old.wpackets) / tdiff;
+		sats = (nicp->new.sat - nicp->old.sat) / tdiff;
+		rkps = rbps / 1024;
+		wkps = wbps / 1024;
+		if (rpps > 0)
+			ravs = rbps / rpps;
+		else
+			ravs = 0;
+		if (wpps > 0)
+			wavs = wbps / wpps;
+		else
+			wavs = 0;
+
+		/* Calculate utilisation */
+		if (nicp->new.speed > 0) {
+			/*
+			 * the following has a mysterious "800", it is
+			 * 100 for the % conversion, and 8 for
+			 * bytes2bits.
+			 */
+			if (nicp->new.duplex = 2)
+				/* Full duplex */
+				if (wbps > rbps)
+					util = wbps * 800 / nicp->new.speed;
+				else
+					util = rbps * 800 / nicp->new.speed;
+			else
+				util = (rbps + wbps) * 800 / nicp->new.speed;
+			if (util > 100)
+				util = 100;
+		} else
+			util = 0;
+
+		/* always print header if there are multiple NICs */
+		if (g_nicdata_count > 1)
+			g_line += PAGE_SIZE;
+		else
+			g_line++;
+
+		/* Skip zero lines */
+		if (g_skipzero && wpps == 0 && rpps == 0)
+			continue;
+
+		/* Fetch time */
+		times = localtime((time_t *) &nicp->new.tv.tv_sec);
+		(void) strftime(timestr, sizeof (timestr),
+				"%H:%M:%S", times);
+
+		/* Print output line */
+		(void) printf("%s %8s ", timestr, nicp->name);
+		if (g_style)
+			(void) printf("%14.3f %14.3f\n", rkps, wkps);
+		else
+			(void) printf("%7.*f %7.*f %7.*f %7.*f "
+				"%7.*f %7.*f %5.*f %6.*f\n",
+				precision(rkps), rkps,
+				precision(wkps), wkps,
+				precision(rpps), rpps,
+				precision(wpps), wpps,
+				precision(ravs), ravs,
+				precision(wavs), wavs,
+				precision4(util), util,
+				precision(sats), sats);
+		/* Save the current values for next time */
+		nicp->old = nicp->new;
+	}
+}
+
+/*
+ * print_header - print the header line.
+ */
+static void
+print_header(void)
+{
+	if (g_style)
+		(void) printf("%8s %8s %14s %14s\n",
+			"Time", "Int", "rKB/s", "wKB/s");
+	else
+		(void) printf(
+			"%8s %8s %7s %7s %7s %7s %7s %7s %5s %6s\n",
+			"Time", "Int", "rKB/s", "wKB/s", "rPk/s",
+			"wPk/s", "rAvs", "wAvs", "%Util", "Sat");
+}
+
+static void
+cont_handler(int sig_number)
+{
+	/* Re-set the signal handler */
+	(void) signal(sig_number, cont_handler);
+	g_caught_cont = 1;
+}
+
+static void
+sleep_for(hrtime_t period, hrtime_t start_n)
+{
+	struct timespec pause_tv;
+	hrtime_t now_n, pause_n;
+	int status;
+
+	pause_n = period;
+	do {
+		pause_tv.tv_sec = pause_n / NANOSEC;
+		pause_tv.tv_nsec = pause_n % NANOSEC;
+		status = nanosleep(&pause_tv, (struct timespec *) NULL);
+		if (status < 0)
+			if (errno == EINTR) {
+				now_n = gethrtime();
+				pause_n = start_n + period - now_n;
+				if (pause_n < 100)
+					/* Forget about it */
+					return;
+			} else {
+				die(1, "nanosleep", g_arg0);
+			}
+	} while (status != 0);
+}
+
+/*
+ * split - Split a string of delimited fields, returning an array of char *
+ *
+ * NOTE: the input string gets modified by this routine
+ */
+static char **
+split(char *string, char *delim, int *nitems)
+{
+	int ndelim, i;
+	char *p;
+	char *lasts;
+	char **ptrs;
+
+	/* How many delimiters do we have? */
+	ndelim = 0;
+	for (p = string; *p; p++)
+		if (*p == *delim)
+			ndelim++;
+
+	/* We need that many ptrs + 1 (max) */
+	ptrs = calloc(ndelim + 1, sizeof (char *));
+	if (! ptrs)
+		die(1, "calloc");
+
+	/* Tokenize */
+	i = 0;
+	ptrs[i] = strtok_r(string, delim, &lasts);
+	while (ptrs[i])
+		ptrs[++i] = strtok_r(NULL, delim, &lasts);
+	*nitems = i;
+	/* Terminate pointer array */
+	ptrs[++i] = NULL;
+	return (ptrs);
+}
+
+/*
+ * Main Program
+ */
+int
+main(int argc, char **argv)
+{
+	/*
+	 * Variable Declaration
+	 */
+	int interval;		/* interval, secs */
+	int loop_max;		/* max output lines */
+	int loop;		/* current loop number */
+	int option;		/* command line switch */
+	hrtime_t period_n;	/* period of each iteration in nanoseconds */
+	hrtime_t start_n;	/* start point of an iteration, nsec */
+	hrtime_t end_n;		/* end time of work in an iteration, nsec */
+	hrtime_t pause_n;	/* time until start of next iteration, nsec */
+	int max_ifs;		/* most if names that can be in -i optarg */
+	int tracked_ifs;
+
+	/* defaults */
+	interval = INTERVAL;
+	loop_max = LOOP_MAX;
+	g_line = PAGE_SIZE;
+	loop = 0;
+	g_style = 0;
+	g_skipzero = 0;
+	g_nonlocal = 0;
+	g_someif = 0;
+	g_forever = 0;
+
+	/*
+	 * Process arguments
+	 */
+	g_arg0 = argv[0];
+	while ((option = getopt(argc, argv, "hi:szn")) != -1) {
+		switch (option) {
+		case 'h':
+			usage();
+			break;
+		case 'i':
+			g_tracked = split(optarg, ",", &tracked_ifs);
+			g_someif = tracked_ifs > 0;
+			break;
+		case 's':
+			g_style = 1;
+			break;
+		case 'z':
+			g_skipzero = 1;
+			break;
+		case 'n':
+			g_nonlocal = 1;
+			break;
+		default:
+			usage();
+		}
+	}
+	argv += optind;
+	if ((argc - optind) >= 1) {
+		interval = atoi(*argv);
+		if (interval == 0)
+			usage();
+		argv++;
+		if ((argc - optind) >= 2)
+			loop_max = atoi(*argv);
+		else
+			g_forever = 1;
+	}
+
+	/* Get a socket so I can do ioctl's */
+	if ((g_sock = socket(AF_INET, SOCK_DGRAM, 0)) < 0)
+		die(1, "socket");
+
+	/* Open Kstat */
+	if ((g_kc = kstat_open()) == NULL)
+		die(1, "kstat_open");
+
+	/* Calculate the period of each iteration */
+	period_n = (hrtime_t) interval * NANOSEC;
+
+	/* Get time when we started */
+	start_n = gethrtime();
+
+	/*
+	 * Set up signal handling
+	 */
+	(void) signal(SIGCONT, cont_handler);
+
+	/*
+	 * Main Loop
+	 */
+	for (;;) {
+		/* Print header line */
+		if (g_line >= PAGE_SIZE) {
+			g_line = 0;
+			print_header();
+		}
+
+		/*
+		 * Fetch Data
+		 */
+		update_nicdata_list();
+
+		/* Check we matched some NICs */
+		if (g_nicdata_count <= 0)
+			die(0, "no matching interface");
+
+		/*
+		 * Calculate and Print Data
+		 */
+		update_stats();
+		print_stats();
+
+		/* end point */
+		if (!g_forever)
+			if (++loop == loop_max) break;
+
+		/* flush output */
+		if (fflush(stdout) != 0)
+			die(1, "fflush(stdout)");
+
+		/*
+		 * have a kip
+		 *
+		 */
+		end_n = gethrtime();
+		pause_n = start_n + period_n - end_n;
+		if (pause_n <= 0 || pause_n < (period_n / 4))
+			if (g_forever || g_caught_cont) {
+				/* Reset our cadence */
+				start_n = end_n + period_n;
+				pause_n = period_n;
+			} else {
+				/*
+				 * The case for better observability
+				 *
+				 * If we got here, then the time
+				 * between the output we just did, and
+				 * the scheduled time for the next
+				 * output is < 1/4 of our requested
+				 * interval AND the number of
+				 * intervals has been requested AND we
+				 * have never caught a SIGCONT (so we
+				 * have never been suspended).  In
+				 * this case, we'll try to stay to the
+				 * desired cadence, and we will pause
+				 * for 1/2 the normal interval this
+				 * time.
+				 */
+				pause_n = period_n / 2;
+				start_n += period_n;
+			}
+		else
+			start_n += period_n;
+		if (pause_n > 0)
+			sleep_for(pause_n, end_n);
+	}
+
+	/*
+	 * Close Kstat & socket
+	 */
+	(void) kstat_close(g_kc);
+	(void) close(g_sock);
+
+	return (0);
+}
