@@ -1,6 +1,0 @@
-#!/bin/bash 
-ping -c 3 192.168.91.1 -I  trade2
-ping -c 3 192.168.90.1 -I  trade1
-ping -c 3 137.34.13.1 -I  eqfn2
-ping -c 3 137.34.12.1 -I  eqfn1
-
