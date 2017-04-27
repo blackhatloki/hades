@@ -1,6 +1,0 @@
-#!/bin/bash 
-for i in `cat list`; do 
-ssh $i "/sbin/chkconfig autofs off "
-ssh $i "/sbin/chkconfig nfsserver off"
-ssh $i "/etc/init.d/nfsserver stop" 
-done 
