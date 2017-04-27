@@ -1,1 +1,0 @@
-sed -e 's/trade1/tmp0/g' -e 's/trade2/tmp1/g' -e 's/eqfn1/trade1/g -e 's/eqfn2/trade2/g' -e 's/tmp0/eqfn1/g' -e 's/tmp1/eqfn2/g' 
