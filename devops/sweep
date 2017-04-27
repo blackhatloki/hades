@@ -1,18 +1,6 @@
 #!/usr/bin/perl
 
-# written by: Glenn Komsky
-# version: 1.2
-# last modified: 7/19/10
-# last modified: 8/13/10 -> added --list, --dataonly options
-# last modified: 8/23/10 -> added the following:
-#		            --byapp - ability to sweep by application based on appID
-#			    --bylocation - sweep based on locale
-#			    --force - force a run if trying to use 'flagged' words inside script (init, rm, etc.)
-# last modified: 12/20/10  - removed interaction with HostDB/hostcli; Allows Morning Checkout to manage hostlist and simply use the results
-# last modified: 3/15/11   - added ability to have arguments sent along with script
-# last modified: 3/15/11   - added forking ability
-# last modified: 8/17/11   - modified to work with generic appID instead of grip
-#
+
 # This script will sweep through a list of hosts and run a command file or line
 # The command file can be any language you wish, as long as the file is executable
 
