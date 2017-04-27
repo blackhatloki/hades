@@ -1,4 +1,0 @@
-#!/bin/bash 
-for i in `cat fixlist` ; do 
-ssh $i "chkconfig nscd off; /etc/init.d/nscd stop" 
-done 
