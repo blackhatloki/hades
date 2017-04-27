@@ -1,4 +1,0 @@
-#!/bin/bash 
-sed -e 's/eth2/eqfn1/g' -e 's/eth4/eqfn2/g' /etc/udev/rules.d/30-net_persistent_names.rules >  /etc/udev/rules.d/30-net_persistent_names.rules.new
-mv /etc/udev/rules.d/30-net_persistent_names.rules /etc/udev/rules.d/30-net_persistent_names.rules.orig
-mv /etc/udev/rules.d/30-net_persistent_names.rules.new /etc/udev/rules.d/30-net_persistent_names.rules
