@@ -1,4 +1,0 @@
-#!/bin/bash 
-cd /etc/sysconfig/network
-mv ifcfg-eqfn1 ifcfg-id-`ifconfig -a | grep HW | grep eth2 | awk ' { print $5 } '`
-mv ifcfg-eqfn2 ifcfg-id-`ifconfig -a | grep HW | grep eth4 | awk ' { print $5 } '`
