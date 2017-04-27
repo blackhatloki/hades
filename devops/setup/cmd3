@@ -1,2 +1,0 @@
-#!/bin/bash 
-sync ; sync ; reboot -f & 
