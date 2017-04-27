@@ -3,18 +3,7 @@
 # dpscan.pl
 # Capture all types of Discover Packet Data and report for each viable interface
 #
-# written by Glenn Komsky
-# last modified: 11/02/2010
-# last modified: 03/06/2012 - fixed issue shown only in SLES11 where LLDP packets from the host itself were displayed
-#                             Now, if the devid matches the hostname we know to ignore
-#                03/26/2012 - moved wshome/library/binary settings and paths to check for SLES 11 before setting
-# 		 05/08/2012 - added logger ability to dpscan
-#		 05/11/2012 - Added Redhat compatibility
-#		 06/26/2012 - Added in mac/ip information into results
-#		 08/22/2012 - close opened pipe - added check to see if pipe not closed properly, then close.  Attempting using Kill 
-#			      for child, parent, etc. but much cleaner and more guaranteed with close. Note - close causes approx. 15 sec delay
-#		 10/03/2012 - Added additional check to tshark line for CDP packets with 4byte shift caused by VLAN tagging
-#
+
 
 use Getopt::Long;
 
