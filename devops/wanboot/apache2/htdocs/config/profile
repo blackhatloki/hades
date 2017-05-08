@@ -1,8 +1,0 @@
-install_type flash_install
-archive_location http://169.37.41.200/flash/archive01.flar
-partitioning explicit
-filesys c0t0d0s0 2000 /
-filesys c0t0d0s1 8000 swap
-filesys c0t0d0s5 8000 /var
-filesys c0t0d0s6 free /app
-filesys c0t0d0s7 1000 /metadb
