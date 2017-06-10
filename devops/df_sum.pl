@@ -1,4 +1,4 @@
-#!/usr/local/bin/perl
+#!/usr/bin/perl
 # Script to sum df data
 # Written 3/16/99 by Robert G. Ferrell
 
