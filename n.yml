@@ -1,0 +1,32 @@
+---
+- hosts: client2.local
+  tasks:
+
+  - name: Add repository
+    yum_repository:
+      name: epel
+      description: EPEL YUM repo
+      baseurl: https://download.fedoraproject.org/pub/epel/$releasever/$basearch/
+      gpgkey: https://dl.fedoraproject.org/pub/epel/
+      gpgcheck: no
+
+
+  - name: Install nrpe
+    yum:
+      name: nrpe
+      state: present
+  - name: Install nagios-plugins
+    yum:
+      name: nagios-plugins-all
+      state: present
+  - name: Install openssl
+    yum:
+      name: openssl
+      state: present
+  - name: write the nrpe config file
+    template: src=/etc/ansible/nrpe.tmpl dest=/etc/nagios/nrpe.conf
+    notify:
+    - restart nrpe
+  - name: open firewalld port
+    command: firewall-cmd --zone=public --permanent --add-port=5666/tcp
+    command: firewall-cmd --reload
