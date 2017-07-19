@@ -1,7 +1,3 @@
-Move 23 servers to Prince  (High)
-    6 High/Med Memory 
-    17 GPU 
-
 Monitoring (Nagios)  (Med) 
 Ansible  (Med) 
     * automounter for archive
@@ -13,11 +9,8 @@ Backup
      10 GE switches 
 
 - Node Health Check (Low) 
-- Failover of BEEGFS (Low)
 - Docs for zfs replication between home-0 and home-1  (Low)
-- Dev Cluster (Low)
 - Fix hostname on the 1GE switches(Low) 
 - FIx hostname on the 10GE switches
 - Dell Inventory
 - Performance (Ganglia)
-
