@@ -26,7 +26,7 @@ def escapequote(n,single):
 
 # BTW, this may not work as well with *csh as sh/ksh/bash!
 
-alternate = 0
+alternate = 1
 
 if len(sys.argv) != 4:
 	usage()
@@ -36,7 +36,7 @@ optional_opts=sys.argv[1]
 #always_opts='-X -A -o SendEnv'
 always_opts='-X -A'
 
-chain=string.splitfields(sys.argv[2],'!')
+chain=string.splitfields(sys.argv[2],',')
 
 number=len(chain)
 if alternate == 1:
