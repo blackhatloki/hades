@@ -1,0 +1,558 @@
+﻿Site,Floor,Row ,Cabinet,Type,Chassis ,Cluster,Hostgroup,RU,Hostname,Slot,Type,Model Name,Serial Number,Commission date,Description,Status
+South Data Center,12,K,24-003,Server,PowerEdge C6320 Server Node,Prince,dell,U1,c01-01,1,C6320,PowerEdge C6320,S6DQD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-003,Server,PowerEdge C6320 Server Node,Prince,dell,U1,c01-02,2,C6320,PowerEdge C6320,1S6FQD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-003,Server,PowerEdge C6320 Server Node,Prince,dell,U1,c01-03,3,C6320,PowerEdge C6320,1S74QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-003,Server,PowerEdge C6320 Server Node,Prince,dell,U1,c01-04,4,C6320,PowerEdge C6320,1S75QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-003,Server,PowerEdge C6320 Server Node,Prince,dell,U3,c02-01,1,C6320,PowerEdge C6320,1S7BQD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-003,Server,PowerEdge C6320 Server Node,Prince,dell,U3,c02-02,2,C6320,PowerEdge C6320,1S7CQD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-003,Server,PowerEdge C6320 Server Node,Prince,dell,U3,c02-03,3,C6320,PowerEdge C6320,1S7DQD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-003,Server,PowerEdge C6320 Server Node,Prince,dell,U3,c02-04,4,C6320,PowerEdge C6320,1S7FQD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-003,Server,PowerEdge C6320 Server Node,Prince,dell,U5,c03-01,1,C6320,PowerEdge C6320,1SD6QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-003,Server,PowerEdge C6320 Server Node,Prince,dell,U5,c03-02,2,C6320,PowerEdge C6320,1SD9QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-003,Server,PowerEdge C6320 Server Node,Prince,dell,U5,c03-03,3,C6320,PowerEdge C6320,1SD7QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-003,Server,PowerEdge C6320 Server Node,Prince,dell,U5,c03-04,4,C6320,PowerEdge C6320,1SD8QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-003,Server,PowerEdge C6320 Server Node,Prince,dell,U9,c04-01,1,C6320,PowerEdge C6320,1S66QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-003,Server,PowerEdge C6320 Server Node,Prince,dell,U9,c04-02,2,C6320,PowerEdge C6320,1S67QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-003,Server,PowerEdge C6320 Server Node,Prince,dell,U9,c04-03,3,C6320,PowerEdge C6320,1S65QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-003,Server,PowerEdge C6320 Server Node,Prince,dell,U9,c04-04,4,C6320,PowerEdge C6320,1S64QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-003,Server,PowerEdge C6320 Server Node,Prince,dell,U11,c05-01,1,C6320,PowerEdge C6320,1SB8QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-003,Server,PowerEdge C6320 Server Node,Prince,dell,U11,c05-02,2,C6320,PowerEdge C6320,1SB9QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-003,Server,PowerEdge C6320 Server Node,Prince,dell,U11,c05-03,3,C6320,PowerEdge C6320,1SBBQD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-003,Server,PowerEdge C6320 Server Node,Prince,dell,U11,c05-04,4,C6320,PowerEdge C6320,1SBCQD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-003,Server,PowerEdge C6320 Server Node,Prince,dell,U13,c06-01,1,C6320,PowerEdge C6320,1SG4QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-003,Server,PowerEdge C6320 Server Node,Prince,dell,U13,c06-02,2,C6320,PowerEdge C6320,1SG5QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-003,Server,PowerEdge C6320 Server Node,Prince,dell,U13,c06-03,3,C6320,PowerEdge C6320,1SG6QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-003,Server,PowerEdge C6320 Server Node,Prince,dell,U13,c06-04,4,C6320,PowerEdge C6320,1SG7QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-003,Server,PowerEdge C6320 Server Node,Prince,dell,U15,c07-01,1,C6320,PowerEdge C6320,1S8BQD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-003,Server,PowerEdge C6320 Server Node,Prince,dell,U15,c07-02,2,C6320,PowerEdge C6320,1S89QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-003,Server,PowerEdge C6320 Server Node,Prince,dell,U15,c07-03,3,C6320,PowerEdge C6320,1S8CQD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-003,Server,PowerEdge C6320 Server Node,Prince,dell,U15,c07-04,4,C6320,PowerEdge C6320,1S88QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-003,Server,PowerEdge C6320 Server Node,Prince,dell,U17,c08-01,1,C6320,PowerEdge C6320,1SF5QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-003,Server,PowerEdge C6320 Server Node,Prince,dell,U17,c08-02,2,C6320,PowerEdge C6320,1SF6QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-003,Server,PowerEdge C6320 Server Node,Prince,dell,U17,c08-03,3,C6320,PowerEdge C6320,1SF7QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-003,Server,PowerEdge C6320 Server Node,Prince,dell,U17,c08-04,4,C6320,PowerEdge C6320,1SF8QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-001,Server,PowerEdge C6320 Server Node,Prince,dell,U1,c09-01,1,C6320,PowerEdge C6320,1S85QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-001,Server,PowerEdge C6320 Server Node,Prince,dell,U1,c09-02,2,C6320,PowerEdge C6320,1S86QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-001,Server,PowerEdge C6320 Server Node,Prince,dell,U1,c09-03,3,C6320,PowerEdge C6320,1S84QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-001,Server,PowerEdge C6320 Server Node,Prince,dell,U1,c09-04,4,C6320,PowerEdge C6320,1S87QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-001,Server,PowerEdge C6320 Server Node,Prince,dell,U3,c10-01,1,C6320,PowerEdge C6320,1S45QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-001,Server,PowerEdge C6320 Server Node,Prince,dell,U3,c10-02,2,C6320,PowerEdge C6320,1S47QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-001,Server,PowerEdge C6320 Server Node,Prince,dell,U3,c10-03,3,C6320,PowerEdge C6320,1S46QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-001,Server,PowerEdge C6320 Server Node,Prince,dell,U3,c10-04,4,C6320,PowerEdge C6320,1S44QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-001,Server,PowerEdge C6320 Server Node,Prince,dell,U5,c11-01,1,C6320,PowerEdge C6320,1SC7QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-001,Server,PowerEdge C6320 Server Node,Prince,dell,U5,c11-02,2,C6320,PowerEdge C6320,1SC8QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-001,Server,PowerEdge C6320 Server Node,Prince,dell,U5,c11-03,3,C6320,PowerEdge C6320,1SC9QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-001,Server,PowerEdge C6320 Server Node,Prince,dell,U5,c11-04,4,C6320,PowerEdge C6320,1SCBQD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-001,Server,PowerEdge C6320 Server Node,Prince,dell,U9,c12-01,1,C6320,PowerEdge C6320,1SCDQD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-001,Server,PowerEdge C6320 Server Node,Prince,dell,U9,c12-02,2,C6320,PowerEdge C6320,1SD4QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-001,Server,PowerEdge C6320 Server Node,Prince,dell,U9,c12-03,3,C6320,PowerEdge C6320,1SCCQD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-001,Server,PowerEdge C6320 Server Node,Prince,dell,U9,c12-04,4,C6320,PowerEdge C6320,1SD5QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-001,Server,PowerEdge C6320 Server Node,Prince,dell,U11,c13-01,1,C6320,PowerEdge C6320,1S58QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-001,Server,PowerEdge C6320 Server Node,Prince,dell,U11,c13-02,2,C6320,PowerEdge C6320,1S57QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-001,Server,PowerEdge C6320 Server Node,Prince,dell,U11,c13-03,3,C6320,PowerEdge C6320,1S59QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-001,Server,PowerEdge C6320 Server Node,Prince,dell,U11,c13-04,4,C6320,PowerEdge C6320,1S56QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-001,Server,PowerEdge C6320 Server Node,Prince,dell,U13,c14-01,1,C6320,PowerEdge C6320,1S68QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-001,Server,PowerEdge C6320 Server Node,Prince,dell,U13,c14-02,2,C6320,PowerEdge C6320,1S69QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-001,Server,PowerEdge C6320 Server Node,Prince,dell,U13,c14-03,3,C6320,PowerEdge C6320,1S6BQD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-001,Server,PowerEdge C6320 Server Node,Prince,dell,U13,c14-04,4,C6320,PowerEdge C6320,1S6CQD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-001,Server,PowerEdge C6320 Server Node,Prince,dell,U15,c15-01,1,C6320,PowerEdge C6320,1S94QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-001,Server,PowerEdge C6320 Server Node,Prince,dell,U15,c15-02,2,C6320,PowerEdge C6320,1S8FQD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-001,Server,PowerEdge C6320 Server Node,Prince,dell,U15,c15-03,3,C6320,PowerEdge C6320,1S95QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-001,Server,PowerEdge C6320 Server Node,Prince,dell,U15,c15-04,4,C6320,PowerEdge C6320,1S8DQD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-001,Server,PowerEdge C6320 Server Node,Prince,dell,U17,c16-01,1,C6320,PowerEdge C6320,1S5BQD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-001,Server,PowerEdge C6320 Server Node,Prince,dell,U17,c16-02,2,C6320,PowerEdge C6320,1S5FQD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-001,Server,PowerEdge C6320 Server Node,Prince,dell,U17,c16-03,3,C6320,PowerEdge C6320,1S5DQD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-001,Server,PowerEdge C6320 Server Node,Prince,dell,U17,c16-04,4,C6320,PowerEdge C6320,1S5CQD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-009,Server,PowerEdge C6320 Server Node,Prince,dell,U1,c17-01,1,C6320,PowerEdge C6320,1SDBQD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-009,Server,PowerEdge C6320 Server Node,Prince,dell,U1,c17-02,2,C6320,PowerEdge C6320,1SDCQD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-009,Server,PowerEdge C6320 Server Node,Prince,dell,U1,c17-03,3,C6320,PowerEdge C6320,1SDDQD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-009,Server,PowerEdge C6320 Server Node,Prince,dell,U1,c17-04,4,C6320,PowerEdge C6320,1SF4QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,ww-001,Server,PowerEdge C6320 Server Node,Prince,dell,U1,c18-01,1,C6320,PowerEdge C6320,1S79QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,ww-001,Server,PowerEdge C6320 Server Node,Prince,dell,U1,c18-02,2,C6320,PowerEdge C6320,1S77QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,ww-001,Server,PowerEdge C6320 Server Node,Prince,dell,U1,c18-03,3,C6320,PowerEdge C6320,1S76QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,ww-001,Server,PowerEdge C6320 Server Node,Prince,dell,U1,c18-04,4,C6320,PowerEdge C6320,1S78QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,ww-001,Server,PowerEdge C6320 Server Node,Prince,dell,U3,c19-01,1,C6320,PowerEdge C6320,1SC4QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,ww-001,Server,PowerEdge C6320 Server Node,Prince,dell,U3,c19-02,2,C6320,PowerEdge C6320,1SBDQD2,1/1/17,Compute Node,Production
+South Data Center,12,K,ww-001,Server,PowerEdge C6320 Server Node,Prince,dell,U3,c19-03,3,C6320,PowerEdge C6320,1SC5QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,ww-001,Server,PowerEdge C6320 Server Node,Prince,dell,U3,c19-04,4,C6320,PowerEdge C6320,1SC6QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,ww-001,Server,PowerEdge C6320 Server Node,Prince,dell,U5,c20-01,1,C6320,PowerEdge C6320,1S4BQD2,1/1/17,Compute Node,Production
+South Data Center,12,K,ww-001,Server,PowerEdge C6320 Server Node,Prince,dell,U5,c20-02,2,C6320,PowerEdge C6320,1S4CQD2,1/1/17,Compute Node,Production
+South Data Center,12,K,ww-001,Server,PowerEdge C6320 Server Node,Prince,dell,U5,c20-03,3,C6320,PowerEdge C6320,1S49QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,ww-001,Server,PowerEdge C6320 Server Node,Prince,dell,U5,c20-04,4,C6320,PowerEdge C6320,1S48QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,ww-001,Server,PowerEdge C6320 Server Node,Prince,dell,U9,c21-01,1,C6320,PowerEdge C6320,1S9DQD2,1/1/17,Compute Node,Production
+South Data Center,12,K,ww-001,Server,PowerEdge C6320 Server Node,Prince,dell,U9,c21-02,2,C6320,PowerEdge C6320,1S9CQD2,1/1/17,Compute Node,Production
+South Data Center,12,K,ww-001,Server,PowerEdge C6320 Server Node,Prince,dell,U9,c21-03,3,C6320,PowerEdge C6320,1S9FQD2,1/1/17,Compute Node,Production
+South Data Center,12,K,ww-001,Server,PowerEdge C6320 Server Node,Prince,dell,U9,c21-04,4,C6320,PowerEdge C6320,1S9BQD2,1/1/17,Compute Node,Production
+South Data Center,12,K,ww-001,Server,PowerEdge C6320 Server Node,Prince,dell,U11,c22-01,1,C6320,PowerEdge C6320,1S99QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,ww-001,Server,PowerEdge C6320 Server Node,Prince,dell,U11,c22-02,2,C6320,PowerEdge C6320,1S98QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,ww-001,Server,PowerEdge C6320 Server Node,Prince,dell,U11,c22-03,3,C6320,PowerEdge C6320,1S97QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,ww-001,Server,PowerEdge C6320 Server Node,Prince,dell,U11,c22-04,4,C6320,PowerEdge C6320,1S96QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,ww-001,Server,PowerEdge C6320 Server Node,Prince,dell,U13,c23-01,1,C6320,PowerEdge C6320,1SB6QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,ww-001,Server,PowerEdge C6320 Server Node,Prince,dell,U13,c23-02,2,C6320,PowerEdge C6320,1SB7QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,ww-001,Server,PowerEdge C6320 Server Node,Prince,dell,U13,c23-03,3,C6320,PowerEdge C6320,1SB5QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,ww-001,Server,PowerEdge C6320 Server Node,Prince,dell,U13,c23-04,4,C6320,PowerEdge C6320,1SB4QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,ww-001,Server,PowerEdge C6320 Server Node,Prince,dell,U15,c24-01,1,C6320,PowerEdge C6320,1S4FQD2,1/1/17,Compute Node,Production
+South Data Center,12,K,ww-001,Server,PowerEdge C6320 Server Node,Prince,dell,U15,c24-02,2,C6320,PowerEdge C6320,1S4DQD2,1/1/17,Compute Node,Production
+South Data Center,12,K,ww-001,Server,PowerEdge C6320 Server Node,Prince,dell,U15,c24-03,3,C6320,PowerEdge C6320,1S55QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,ww-001,Server,PowerEdge C6320 Server Node,Prince,dell,U15,c24-04,4,C6320,PowerEdge C6320,1S54QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-009,Server,PowerEdge C6320 Server Node,Prince,dell,U3,c25-01,1,C6320,PowerEdge C6320,1SFBQD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-009,Server,PowerEdge C6320 Server Node,Prince,dell,U3,c25-02,2,C6320,PowerEdge C6320,1SF9QD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-009,Server,PowerEdge C6320 Server Node,Prince,dell,U3,c25-03,3,C6320,PowerEdge C6320,1SFCQD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-009,Server,PowerEdge C6320 Server Node,Prince,dell,U3,c25-04,4,C6320,PowerEdge C6320,1SFDQD2,1/1/17,Compute Node,Production
+South Data Center,12,K,24-004,Server,PowerEdge M1000e,Prince,dell,U1,c26-01,1,M630,PowerEdge M630,360BS52,1/1/17,Compute Node,Production
+South Data Center,12,K,24-004,Server,PowerEdge M1000e,Prince,dell,U1,c26-02,2,M630,PowerEdge M630,363CS52,1/1/17,Compute Node,Production
+South Data Center,12,K,24-004,Server,PowerEdge M1000e,Prince,dell,U1,c26-03,3,M630,PowerEdge M630,361BS52,1/1/17,Compute Node,Production
+South Data Center,12,K,24-004,Server,PowerEdge M1000e,Prince,dell,U1,c26-04,4,M630,PowerEdge M630,3619S52,1/1/17,Compute Node,Production
+South Data Center,12,K,24-004,Server,PowerEdge M1000e,Prince,dell,U1,c26-05,5,M630,PowerEdge M630,364BS52,1/1/17,Compute Node,Production
+South Data Center,12,K,24-004,Server,PowerEdge M1000e,Prince,dell,U1,c26-06,6,M630,PowerEdge M630,360CS52,1/1/17,Compute Node,Production
+South Data Center,12,K,24-004,Server,PowerEdge M1000e,Prince,dell,U1,c26-07,7,M630,PowerEdge M630,364CS52,1/1/17,Compute Node,Production
+South Data Center,12,K,24-004,Server,PowerEdge M1000e,Prince,dell,U1,c26-07,8,M630,PowerEdge M630,364CS52,1/1/17,Compute Node,Production
+South Data Center,12,K,24-004,Server,PowerEdge M1000e,Prince,dell,U1,c26-08,9,M630,PowerEdge M630,361CS52,1/1/17,Compute Node,Production
+South Data Center,12,K,24-004,Server,PowerEdge M1000e,Prince,dell,U1,c26-09,10,M630,PowerEdge M630,3639S52,1/1/17,Compute Node,Production
+South Data Center,12,K,24-004,Server,PowerEdge M1000e,Prince,dell,U1,c26-10,11,M630,PowerEdge M630,365BS52,1/1/17,Compute Node,Production
+South Data Center,12,K,24-004,Server,PowerEdge M1000e,Prince,dell,U1,c26-11,12,M630,PowerEdge M630,362CS52,1/1/17,Compute Node,Production
+South Data Center,12,K,24-004,Server,PowerEdge M1000e,Prince,dell,U1,c26-12,13,M630,PowerEdge M630,363BS52,1/1/17,Compute Node,Production
+South Data Center,12,K,24-004,Server,PowerEdge M1000e,Prince,dell,U1,c26-13,14,M630,PowerEdge M630,3659S52,1/1/17,Compute Node,Production
+South Data Center,12,K,24-004,Server,PowerEdge M1000e,Prince,dell,U1,c26-14,15,M630,PowerEdge M630,3629S52,1/1/17,Compute Node,Production
+South Data Center,12,K,24-004,Server,PowerEdge M1000e,Prince,dell,U1,c26-15,16,M630,PowerEdge M630,3649S52,1/1/17,Compute Node,Production
+South Data Center,12,K,24-004,Server,PowerEdge M1000e,Prince,dell,U11,c27-01,1,M630,PowerEdge M630,5JN9S52,1/1/17,Compute Node,Production
+South Data Center,12,K,24-004,Server,PowerEdge M1000e,Prince,dell,U11,c27-02,2,M630,PowerEdge M630,35Y9S52,1/1/17,Compute Node,Production
+South Data Center,12,K,24-004,Server,PowerEdge M1000e,Prince,dell,U11,c27-03,3,M630,PowerEdge M630,35V8S52,1/1/17,Compute Node,Production
+South Data Center,12,K,24-004,Server,PowerEdge M1000e,Prince,dell,U11,c27-04,4,M630,PowerEdge M630,35XBS52,1/1/17,Compute Node,Production
+South Data Center,12,K,24-004,Server,PowerEdge M1000e,Prince,dell,U11,c27-05,5,M630,PowerEdge M630,35X8S52,1/1/17,Compute Node,Production
+South Data Center,12,K,24-004,Server,PowerEdge M1000e,Prince,dell,U11,c27-06,6,M630,PowerEdge M630,35Z9S52,1/1/17,Compute Node,Production
+South Data Center,12,K,24-004,Server,PowerEdge M1000e,Prince,dell,U11,c27-07,7,M630,PowerEdge M630,35X9S52,1/1/17,Compute Node,Production
+South Data Center,12,K,24-004,Server,PowerEdge M1000e,Prince,dell,U11,c27-08,8,M630,PowerEdge M630,35W8S52,1/1/17,Compute Node,Production
+South Data Center,12,K,24-004,Server,PowerEdge M1000e,Prince,dell,U11,c27-08,9,M630,PowerEdge M630,35W8S52,1/1/17,Compute Node,Production
+South Data Center,12,K,24-004,Server,PowerEdge M1000e,Prince,dell,U11,c27-10,10,M630,PowerEdge M630,35Y8S52,1/1/17,Compute Node,Production
+South Data Center,12,K,24-004,Server,PowerEdge M1000e,Prince,dell,U11,c27-11,11,M630,PowerEdge M630,35W9S52,1/1/17,Compute Node,Production
+South Data Center,12,K,24-004,Server,PowerEdge M1000e,Prince,dell,U11,c27-12,12,M630,PowerEdge M630,35Z8S52,1/1/17,Compute Node,Production
+South Data Center,12,K,24-004,Server,PowerEdge M1000e,Prince,dell,U11,c27-13,13,M630,PowerEdge M630,35VBS52,1/1/17,Compute Node,Production
+South Data Center,12,K,24-004,Server,PowerEdge M1000e,Prince,dell,U11,c27-14,14,M630,PowerEdge M630,35YBS52,1/1/17,Compute Node,Production
+South Data Center,12,K,24-004,Server,PowerEdge M1000e,Prince,dell,U11,c27-15,15,M630,PowerEdge M630,35V9S52,1/1/17,Compute Node,Production
+South Data Center,12,K,24-004,Server,PowerEdge M1000e,Prince,dell,U11,c27-16,16,M630,PowerEdge M630,35ZBS52,1/1/17,Compute Node,Production
+South Data Center,12,E,12-001,Server,PowerEdge M1000e,Prince,dell,U11,c28-01,1,M620,PowerEdge M620,G8HY942,1/1/17,Compute Node,Production
+South Data Center,12,E,12-001,Server,PowerEdge M1000e,Prince,dell,U11,c28-02,2,M620,PowerEdge M620,GX4X942,1/1/17,Compute Node,Production
+South Data Center,12,E,12-001,Server,PowerEdge M1000e,Prince,dell,U11,c28-03,3,M620,PowerEdge M620,G8HX942,1/1/17,Compute Node,Production
+South Data Center,12,E,12-001,Server,PowerEdge M1000e,Prince,dell,U11,c28-04,4,M620,PowerEdge M620,GYCY942,1/1/17,Compute Node,Production
+South Data Center,12,E,12-001,Server,PowerEdge M1000e,Prince,dell,U11,c28-05,5,M620,PowerEdge M620,G8H5B42,1/1/17,Compute Node,Production
+South Data Center,12,E,12-001,Server,PowerEdge M1000e,Prince,dell,U11,c28-06,6,M620,PowerEdge M620,G8J2B42,1/1/17,Compute Node,Production
+South Data Center,12,E,12-001,Server,PowerEdge M1000e,Prince,dell,U11,c28-07,7,M620,PowerEdge M620,G8HZ942,1/1/17,Compute Node,Production
+South Data Center,12,E,12-001,Server,PowerEdge M1000e,Prince,dell,U11,c28-08,8,M620,PowerEdge M620,G8JX942,1/1/17,Compute Node,Production
+South Data Center,12,E,12-001,Server,PowerEdge M1000e,Prince,dell,U11,c28-09,9,M620,PowerEdge M620,G8J1B42,1/1/17,Compute Node,Production
+South Data Center,12,E,12-001,Server,PowerEdge M1000e,Prince,dell,U11,c28-10,10,M620,PowerEdge M620,G8JY942,1/1/17,Compute Node,Production
+South Data Center,12,E,12-001,Server,PowerEdge M1000e,Prince,dell,U11,c28-11,11,M620,PowerEdge M620,G8J4B42,1/1/17,Compute Node,Production
+South Data Center,12,E,12-001,Server,PowerEdge M1000e,Prince,dell,U11,c28-12,12,M620,PowerEdge M620,G8H4B42,1/1/17,Compute Node,Production
+South Data Center,12,E,12-001,Server,PowerEdge M1000e,Prince,dell,U11,c28-13,13,M620,PowerEdge M620,G8J0B42,1/1/17,Compute Node,Production
+South Data Center,12,E,12-001,Server,PowerEdge M1000e,Prince,dell,U11,c28-14,14,M620,PowerEdge M620,G8JW942,1/1/17,Compute Node,Production
+South Data Center,12,E,12-001,Server,PowerEdge M1000e,Prince,dell,U11,c28-15,15,M620,PowerEdge M620,G8HW942,1/1/17,Compute Node,Production
+South Data Center,12,E,12-001,Server,PowerEdge M1000e,Prince,dell,U11,c28-16,16,M620,PowerEdge M620,G8J3B42,1/1/17,Compute Node,Production
+South Data Center,12,E,12-001,Server,PowerEdge M1000e,Prince,dell,U1,c29-01,1,M620,PowerEdge M620,G8N0B42,1/1/17,Compute Node,Production
+South Data Center,12,E,12-001,Server,PowerEdge M1000e,Prince,dell,U1,c29-02,2,M620,PowerEdge M620,G8M3B42,1/1/17,Compute Node,Production
+South Data Center,12,E,12-001,Server,PowerEdge M1000e,Prince,dell,U1,c29-03,3,M620,PowerEdge M620,G8MW942,1/1/17,Compute Node,Production
+South Data Center,12,E,12-001,Server,PowerEdge M1000e,Prince,dell,U1,c29-04,4,M620,PowerEdge M620,G8MX942,1/1/17,Compute Node,Production
+South Data Center,12,E,12-001,Server,PowerEdge M1000e,Prince,dell,U1,c29-05,5,M620,PowerEdge M620,GYD0B42,1/1/17,Compute Node,Production
+South Data Center,12,E,12-001,Server,PowerEdge M1000e,Prince,dell,U1,c29-06,6,M620,PowerEdge M620,G8MY942,1/1/17,Compute Node,Production
+South Data Center,12,E,12-001,Server,PowerEdge M1000e,Prince,dell,U1,c29-07,7,M620,PowerEdge M620,G8MZ942,1/1/17,Compute Node,Production
+South Data Center,12,E,12-001,Server,PowerEdge M1000e,Prince,dell,U1,c29-08,8,M620,PowerEdge M620,G8N2B42,1/1/17,Compute Node,Production
+South Data Center,12,E,12-001,Server,PowerEdge M1000e,Prince,dell,U1,c28-09,9,M620,PowerEdge M620,G8J1B42,1/1/17,Compute Node,Production
+South Data Center,12,E,12-001,Server,PowerEdge M1000e,Prince,dell,U1,c29-10,10,M620,PowerEdge M620,G8M2B42,1/1/17,Compute Node,Production
+South Data Center,12,E,12-001,Server,PowerEdge M1000e,Prince,dell,U1,c29-11,11,M620,PowerEdge M620,G8LY942,1/1/17,Compute Node,Production
+South Data Center,12,E,12-001,Server,PowerEdge M1000e,Prince,dell,U1,c29-12,12,M620,PowerEdge M620,G8LZ942,1/1/17,Compute Node,Production
+South Data Center,12,E,12-001,Server,PowerEdge M1000e,Prince,dell,U1,c29-13,13,M620,PowerEdge M620,G8M4B42,1/1/17,Compute Node,Production
+South Data Center,12,E,12-001,Server,PowerEdge M1000e,Prince,dell,U1,c29-14,14,M620,PowerEdge M620,G8M1B42,1/1/17,Compute Node,Production
+South Data Center,12,E,12-001,Server,PowerEdge M1000e,Prince,dell,U1,c29-15,15,M620,PowerEdge M620,G8N3B42,1/1/17,Compute Node,Production
+South Data Center,12,E,12-001,Server,PowerEdge M1000e,Prince,dell,U1,c29-16,16,M620,PowerEdge M620,G8N1B42,1/1/17,Compute Node,Production
+South Data Center,12,E,12-002,Server,PowerEdge M1000e,Prince,dell,U11,c30-01,1,M620,PowerEdge M620,G8P0B42,1/1/17,Compute Node,Production
+South Data Center,12,E,12-002,Server,PowerEdge M1000e,Prince,dell,U11,c30-02,2,M620,PowerEdge M620,G8Q1B42,1/1/17,Compute Node,Production
+South Data Center,12,E,12-002,Server,PowerEdge M1000e,Prince,dell,U11,c30-03,3,M620,PowerEdge M620,G8PZ942,1/1/17,Compute Node,Production
+South Data Center,12,E,12-002,Server,PowerEdge M1000e,Prince,dell,U11,c30-04,4,M620,PowerEdge M620,G8PY942,1/1/17,Compute Node,Production
+South Data Center,12,E,12-002,Server,PowerEdge M1000e,Prince,dell,U11,c30-05,5,M620,PowerEdge M620,G8NW942,1/1/17,Compute Node,Production
+South Data Center,12,E,12-002,Server,PowerEdge M1000e,Prince,dell,U11,c30-06,6,M620,PowerEdge M620,G8P3B42,1/1/17,Compute Node,Production
+South Data Center,12,E,12-002,Server,PowerEdge M1000e,Prince,dell,U11,c30-07,7,M620,PowerEdge M620,G8PX942,1/1/17,Compute Node,Production
+South Data Center,12,E,12-002,Server,PowerEdge M1000e,Prince,dell,U11,c30-08,8,M620,PowerEdge M620,G8Q0B42,1/1/17,Compute Node,Production
+South Data Center,12,E,12-002,Server,PowerEdge M1000e,Prince,dell,U11,c30-09,9,M620,PowerEdge M620,G8L1B42,1/1/17,Compute Node,Production
+South Data Center,12,E,12-002,Server,PowerEdge M1000e,Prince,dell,U11,c30-10,10,M620,PowerEdge M620,G8NZ942,1/1/17,Compute Node,Production
+South Data Center,12,E,12-002,Server,PowerEdge M1000e,Prince,dell,U11,c30-11,11,M620,PowerEdge M620,G8P2B42,1/1/17,Compute Node,Production
+South Data Center,12,E,12-002,Server,PowerEdge M1000e,Prince,dell,U11,c30-12,12,M620,PowerEdge M620,G8PW942,1/1/17,Compute Node,Production
+South Data Center,12,E,12-002,Server,PowerEdge M1000e,Prince,dell,U11,c30-13,13,M620,PowerEdge M620,G8P1B42,1/1/17,Compute Node,Production
+South Data Center,12,E,12-002,Server,PowerEdge M1000e,Prince,dell,U11,c30-14,14,M620,PowerEdge M620,GYD1B42,1/1/17,Compute Node,Production
+South Data Center,12,E,12-002,Server,PowerEdge M1000e,Prince,dell,U11,c30-15,15,M620,PowerEdge M620,G8N4B42,1/1/17,Compute Node,Production
+South Data Center,12,E,12-002,Server,PowerEdge M1000e,Prince,dell,U11,c30-16,16,M620,PowerEdge M620,G8P4B42,1/1/17,Compute Node,Production
+South Data Center,12,E,12-002,Server,PowerEdge M1000e,Prince,dell,U1,c31-01,1,M620,PowerEdge M620,G8KY942,1/1/17,Compute Node,Production
+South Data Center,12,E,12-002,Server,PowerEdge M1000e,Prince,dell,U1,c31-02,2,M620,PowerEdge M620,G8KW942,1/1/17,Compute Node,Production
+South Data Center,12,E,12-002,Server,PowerEdge M1000e,Prince,dell,U1,c31-03,3,M620,PowerEdge M620,G8L4B42,1/1/17,Compute Node,Production
+South Data Center,12,E,12-002,Server,PowerEdge M1000e,Prince,dell,U1,c31-04,4,M620,PowerEdge M620,G8K3B42,1/1/17,Compute Node,Production
+South Data Center,12,E,12-002,Server,PowerEdge M1000e,Prince,dell,U1,c31-05,5,M620,PowerEdge M620,G8KZ942,1/1/17,Compute Node,Production
+South Data Center,12,E,12-002,Server,PowerEdge M1000e,Prince,dell,U1,c31-06,6,M620,PowerEdge M620,G8K2B42,1/1/17,Compute Node,Production
+South Data Center,12,E,12-002,Server,PowerEdge M1000e,Prince,dell,U1,c31-07,7,M620,PowerEdge M620,G8L0B42,1/1/17,Compute Node,Production
+South Data Center,12,E,12-002,Server,PowerEdge M1000e,Prince,dell,U1,c31-08,8,M620,PowerEdge M620,G8LW942,1/1/17,Compute Node,Production
+South Data Center,12,E,12-002,Server,PowerEdge M1000e,Prince,dell,U1,c31-09,9,M620,PowerEdge M620,G8K0B42,1/1/17,Compute Node,Production
+South Data Center,12,E,12-002,Server,PowerEdge M1000e,Prince,dell,U1,c31-10,10,M620,PowerEdge M620,GYCZ942,1/1/17,Compute Node,Production
+South Data Center,12,E,12-002,Server,PowerEdge M1000e,Prince,dell,U1,c31-11,11,M620,PowerEdge M620,G8K1B42,1/1/17,Compute Node,Production
+South Data Center,12,E,12-002,Server,PowerEdge M1000e,Prince,dell,U1,c31-12,12,M620,PowerEdge M620,G8NX942,1/1/17,Compute Node,Production
+South Data Center,12,E,12-002,Server,PowerEdge M1000e,Prince,dell,U1,c31-13,13,M620,PowerEdge M620,G8L3B42,1/1/17,Compute Node,Production
+South Data Center,12,E,12-002,Server,PowerEdge M1000e,Prince,dell,U1,c31-14,14,M620,PowerEdge M620,G8L2B42,1/1/17,Compute Node,Production
+South Data Center,12,E,12-002,Server,PowerEdge M1000e,Prince,dell,U1,c31-15,15,M620,PowerEdge M620,G8K4B42,1/1/17,Compute Node,Production
+South Data Center,12,E,12-002,Server,PowerEdge M1000e,Prince,dell,U1,c31-16,16,M620,PowerEdge M620,G8KX942,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U33,c32-01 ,1,M620,PowerEdge M620,CK8P9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U33,c32-02,2,M620,PowerEdge M620,CK8N9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U33,c32-03,3,M620,PowerEdge M620,CK7P9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U33,c32-04,4,M620,PowerEdge M620,XXXXXXX,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U33,c32-05,5,M620,PowerEdge M620,CK8M9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U33,c32-06,6,M620,PowerEdge M620,CL9N9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U33,c32-07,7,M620,PowerEdge M620,CL9M9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U33,c32-08,8,M620,PowerEdge M620,XXXXXXX,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U33,c32-09,9,M620,PowerEdge M620,CL8N9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U33,c32-10,10,M620,PowerEdge M620,CL9P9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U33,c32-11,11,M620,PowerEdge M620,CJDM9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U33,c32-12,12,M620,PowerEdge M620,CJDP9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U33,c32-13,13,M620,PowerEdge M620,CJCP9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U33,c32-14,14,M620,PowerEdge M620,5D0N9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U33,c32-15,15,M620,PowerEdge M620,XXXXXX,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U33,c32-16,16,M620,PowerEdge M620,CKGM9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U23,c33-01 ,1,M620,PowerEdge M620,CKHM9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U23,c33-02,2,M620,PowerEdge M620,CKHL9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U23,c33-03,3,M620,PowerEdge M620,CKGP9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U23,c33-04,4,M620,PowerEdge M620,CKGN9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U23,c33-05,5,M620,PowerEdge M620,78BFBZ1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U23,c33-06,6,M620,PowerEdge M620,78CBBZ1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U23,c33-07,7,M620,PowerEdge M620,78CCBZ1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U23,c33-08,8,M620,PowerEdge M620,CJDN9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U23,c33-09,9,M620,PowerEdge M620,78BDBZ1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U23,c33-10,10,M620,PowerEdge M620,CL6P9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U23,c33-11,11,M620,PowerEdge M620,CL6M9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U23,c33-12,12,M620,PowerEdge M620,CL7M9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U23,c33-13,13,M620,PowerEdge M620,CL6N9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U23,c33-14,14,M620,PowerEdge M620,CL7N9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U23,c33-15,15,M620,PowerEdge M620,CJ5N9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U23,c33-16,16,M620,PowerEdge M620,CJ6M9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U11,c34-01,1,M620,PowerEdge M620,CJ5P9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U11,c34-02,2,M620,PowerEdge M620,CJ5M9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U11,c34-03,3,M620,PowerEdge M620,CJ4P9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U11,c34-04,4,M620,PowerEdge M620,CKVL9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U11,c34-05,5,M620,PowerEdge M620,CKWM9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U11,c34-06,6,M620,PowerEdge M620,CKWL9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U11,c34-07,7,M620,PowerEdge M620,CKVN9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U11,c34-08,8,M620,PowerEdge M620,CKVM9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U11,c34-09,9,M620,PowerEdge M620,CHQN9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U11,c34-10,10,M620,PowerEdge M620,CHRN9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U11,c34-11,11,M620,PowerEdge M620,CHRM9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U11,c34-12,12,M620,PowerEdge M620,XXXXXX,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U11,c34-13,13,M620,PowerEdge M620,CHQM9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U11,c34-14,14,M620,PowerEdge M620,CHZL9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U11,c34-15,15,M620,PowerEdge M620,CHYL9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U11,c34-16,16,M620,PowerEdge M620,CHYM9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U1,c39-01,1,M620,PowerEdge M620,CHZM9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U1,c39-02,2,M620,PowerEdge M620,CHYN9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U1,c39-03,3,M620,PowerEdge M620,CJMP9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U1,c39-04,4,M620,PowerEdge M620,CJLP9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U1,c39-05,5,M620,PowerEdge M620,CJMN9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U1,c39-06,6,M620,PowerEdge M620,CJMM9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U1,c39-07,7,M620,PowerEdge M620,XXXXXX,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U1,c39-08,8,M620,PowerEdge M620,CJTM9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U1,c39-09,9,M620,PowerEdge M620,CJVL9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U1,c39-10,10,M620,PowerEdge M620,CJTN9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U1,c39-11,11,M620,PowerEdge M620,CJSN9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U1,c39-12,12,M620,PowerEdge M620,CJGN9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U1,c39-13,13,M620,PowerEdge M620,CJTL9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U1,c39-14,14,M620,PowerEdge M620,CJGM9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U1,c39-15,15,M620,PowerEdge M620,CJGP9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-055,Server,PowerEdge M1000e,Prince,dell,U1,c39-16 ,16,M620,PowerEdge M620,XXXXXXX,1/1/17,Compute Node,Production
+South Data Center,12,B,12-056,Server,PowerEdge M1000e,Prince,dell,U1,c35-01,1,M620,PowerEdge M620,CKNN9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-056,Server,PowerEdge M1000e,Prince,dell,U1,c35-02,2,M620,PowerEdge M620,CJFP9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-056,Server,PowerEdge M1000e,Prince,dell,U1,c35-03,3,M620,PowerEdge M620,CKMP9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-056,Server,PowerEdge M1000e,Prince,dell,U1,c35-04,4,M620,PowerEdge M620,CK0P9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-056,Server,PowerEdge M1000e,Prince,dell,U1,c35-05,5,M620,PowerEdge M620,CK1P9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-056,Server,PowerEdge M1000e,Prince,dell,U1,c35-06,6,M620,PowerEdge M620,CK1M9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-056,Server,PowerEdge M1000e,Prince,dell,U1,c35-07,7,M620,PowerEdge M620,CKNL9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-056,Server,PowerEdge M1000e,Prince,dell,U1,c35-08,8,M620,PowerEdge M620,CKNM9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-056,Server,PowerEdge M1000e,Prince,dell,U1,c35-09,9,M620,PowerEdge M620,CKMN9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-056,Server,PowerEdge M1000e,Prince,dell,U1,c35-10,10,M620,PowerEdge M620,CK2M9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-056,Server,PowerEdge M1000e,Prince,dell,U1,c35-11,11,M620,PowerEdge M620,CK1N9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-056,Server,PowerEdge M1000e,Prince,dell,U1,c35-12,12,M620,PowerEdge M620,695Y8Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-056,Server,PowerEdge M1000e,Prince,dell,U1,c35-13,13,M620,PowerEdge M620,697X8Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-056,Server,PowerEdge M1000e,Prince,dell,U1,c35-14,14,M620,PowerEdge M620,690X8Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-056,Server,PowerEdge M1000e,Prince,dell,U1,c35-15,15,M620,PowerEdge M620,690Y8Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-056,Server,PowerEdge M1000e,Prince,dell,U1,c35-16,16,M620,PowerEdge M620,68WV8Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-056,Server,PowerEdge M1000e,Prince,dell,U11,c40-01,1,M620,PowerEdge M620,698Y8Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-056,Server,PowerEdge M1000e,Prince,dell,U11,c40-02,2,M620,PowerEdge M620,68VY8Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-056,Server,PowerEdge M1000e,Prince,dell,U11,c40-03,3,M620,PowerEdge M620,XXXXXX,1/1/17,Compute Node,Production
+South Data Center,12,B,12-056,Server,PowerEdge M1000e,Prince,dell,U11,c40-04,4,M620,PowerEdge M620,698W8Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-056,Server,PowerEdge M1000e,Prince,dell,U11,c40-05,5,M620,PowerEdge M620,693W8Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-056,Server,PowerEdge M1000e,Prince,dell,U11,c40-06,6,M620,PowerEdge M620,68WY8Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-056,Server,PowerEdge M1000e,Prince,dell,U11,c40-07,7,M620,PowerEdge M620,696X8Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-056,Server,PowerEdge M1000e,Prince,dell,U11,c40-08,8,M620,PowerEdge M620,691Y8Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-056,Server,PowerEdge M1000e,Prince,dell,U11,c40-09,9,M620,PowerEdge M620,5CZN9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-056,Server,PowerEdge M1000e,Prince,dell,U11,c40-10,10,M620,PowerEdge M620,5CZL9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-056,Server,PowerEdge M1000e,Prince,dell,U11,c40-11,11,M620,PowerEdge M620,68WX8Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-056,Server,PowerEdge M1000e,Prince,dell,U11,c40-12,12,M620,PowerEdge M620,691W8Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-056,Server,PowerEdge M1000e,Prince,dell,U11,c40-13,13,M620,PowerEdge M620,5D0M9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-056,Server,PowerEdge M1000e,Prince,dell,U11,c40-14,14,M620,PowerEdge M620,5CZM9Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-056,Server,PowerEdge M1000e,Prince,dell,U11,c40-15,15,M620,PowerEdge M620,68XX8Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-056,Server,PowerEdge M1000e,Prince,dell,U11,c40-16,16,M620,PowerEdge M620,68WW8Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U33,c36-01,1,M620,PowerEdge M620,698X8Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U33,c36-02,2,M620,PowerEdge M620,XXXXXX,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U33,c36-03,3,M620,PowerEdge M620,693X8Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U33,c36-04,4,M620,PowerEdge M620,696Y8Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U33,c36-05,5,M620,PowerEdge M620,696W8Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U33,c36-06,6,M620,PowerEdge M620,697Y8Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U33,c36-07,7,M620,PowerEdge M620,68XV8Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U33,c36-08,8,M620,PowerEdge M620,692Y8Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U33,c36-09,9,M620,PowerEdge M620,692W8Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U33,c36-10,10,M620,PowerEdge M620,68XY8Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U33,c36-11,11,M620,PowerEdge M620,68YV8Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U33,c36-12,12,M620,PowerEdge M620,68XW8Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U33,c36-13,13,M620,PowerEdge M620,692X8Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U33,c36-14,14,M620,PowerEdge M620,699W8Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U33,c36-15,15,M620,PowerEdge M620,699X8Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U33,c36-16,16,M620,PowerEdge M620,699Y8Z1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U23,c37-01,1,M620,PowerEdge M620,FMM6CZ1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U23,c37-02,2,M620,PowerEdge M620,FMQ7CZ1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U23,c37-03,3,M620,PowerEdge M620,FMQ6CZ1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U23,c37-04,4,M620,PowerEdge M620,FMK6CZ1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U23,c37-05,5,M620,PowerEdge M620,FMK5CZ1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U23,c37-06,6,M620,PowerEdge M620,XXXXX,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U23,c37-07,7,M620,PowerEdge M620,FMP6CZ1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U23,c37-08,8,M620,PowerEdge M620,FMJ7CZ1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U23,c37-09,9,M620,PowerEdge M620,FMM5CZ1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U23,c37-10,10,M620,PowerEdge M620,FMN7CZ1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U23,c37-11,11,M620,PowerEdge M620,FMJ5CZ1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U23,c37-12,12,M620,PowerEdge M620,FMJ6CZ1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U23,c37-13,13,M620,PowerEdge M620,FMR6CZ1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U23,c37-14,14,M620,PowerEdge M620,FMH6CZ1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U23,c37-15,15,M620,PowerEdge M620,FMK7CZ1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U23,c37-16,16,M620,PowerEdge M620,FMH7CZ1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U11,c38-01,1,M620,PowerEdge M620,4V65CZ1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U11,c38-02,2,M620,PowerEdge M620,4V68CZ1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U11,c38-03,3,M620,PowerEdge M620,4V85CZ1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U11,c38-04,4,M620,PowerEdge M620,4V66CZ1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U11,c38-05,5,M620,PowerEdge M620,4V67CZ1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U11,c38-06,6,M620,PowerEdge M620,4V78CZ1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U11,c38-07,7,M620,PowerEdge M620,FML6CZ1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U11,c38-08,8,M620,PowerEdge M620,FML7CZ1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U11,c38-09,9,M620,PowerEdge M620,FMQ5CZ1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U11,c38-10,10,M620,PowerEdge M620,FMM7CZ1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U11,c38-11,11,M620,PowerEdge M620,FMN6CZ1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U11,c38-12,12,M620,PowerEdge M620,4V76CZ1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U11,c38-13,13,M620,PowerEdge M620,4V77CZ1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U11,c38-14,14,M620,PowerEdge M620,4V58CZ1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U11,c38-15,15,M620,PowerEdge M620,FMP5CZ1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U11,c38-16,16,M620,PowerEdge M620,FMN5CZ1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U1,c41-01,1,M620,PowerEdge M620,FMR7CZ1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U1,c41-02,2,M620,PowerEdge M620,FML5CZ1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U1,c41-03,3,M620,PowerEdge M620,FMR5CZ1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U1,c41-04,4,M620,PowerEdge M620,4V75CZ1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U1,c41-05,5,M620,PowerEdge M620,1JBFH02,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U1,c41-06,6,M620,PowerEdge M620,1JBGH02,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U1,c41-07,7,M620,PowerEdge M620,1JCCH02,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U1,c41-08,8,M620,PowerEdge M620,1JBDH02,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U1,c41-09,9,M620,PowerEdge M620,3G0XK02,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U1,c41-10,10,M620,PowerEdge M620,1JBCH02,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U1,c41-11,11,M620,PowerEdge M620,GN3WFZ1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U1,c41-12,12,M620,PowerEdge M620,XXXXX,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U1,c41-13,13,M620,PowerEdge M620,GN3TFZ1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U1,c41-14,14,M620,PowerEdge M620,GN4VFZ1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U1,c41-15,15,M620,PowerEdge M620,GN3VFZ1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,PowerEdge M1000e,Prince,dell,U1,c41-16,16,M620,PowerEdge M620,GN4TFZ1,1/1/17,Compute Node,Production
+South Data Center,12,H,24-017,Server,NA,Prince,dell,U16,prince-master0,0,R630,PowerEdge R630,1W3RKB2,1/1/17,Master Node Prince,Production
+South Data Center,12,K,24-005,Server,NA,Prince,dell,U1,prince-master1,0,R630,PowerEdge R630,1W3SKB2,1/1/17,Master Backup Node Prince,Production
+South Data Center,12,H,24-017,Server,NA,Prince,dell,U27,home-0,0,R730xd,PowerEdge R730xd,J89GQD2,1/1/17,Home Server,Production
+South Data Center,12,H,24-017,Server,NA,Prince,dell,U29,home-1,0,R730xd,PowerEdge R730xd,J88VQD2,1/1/17,Application Data Server,Production
+South Data Center,12,H,24-017,Server,NA,NA,dell,U25,ufm01,0,R430,PowerEdge R430,4BBQPD2,1/1/17,UFM Server,Production
+South Data Center,12,H,24-017,Server,NA,NA,dell,U24,beegfs-1,0,DDN Server,DDN Server-OEM-DELL,C384KB2,1/1/17,Beegfs Server,Production
+South Data Center,12,H,24-017,Server,NA,NA,dell,U23,beegfs-2,0,DDN Server,DDN Server-OEM-DELL,C383KB2,1/1/17,Beegfs Server,Production
+South Data Center,12,H,24-017,Server,NA,NA,dell,U22,beegfs-3,0,DDN Server,DDN Server-OEM-DELL,C379KB2,1/1/17,Beegfs Server,Production
+South Data Center,12,H,24-017,Server,NA,NA,dell,U21,beegfs-4,0,DDN Server,DDN Server-OEM-DELL,C378KB2,1/1/17,Beegfs Server,Production
+South Data Center,12,B,12-055,Server,NA,Mercer,dell,U21,mercer-log-0,0,R620,PowerEdge R620,5NS8J02,1/1/17,Report Server,Production
+South Data Center,12,B,12-056,Server,NA,Mercer,dell,U23,mercer-log-1,0,R620,PowerEdge R620,5NT3J02,1/1/17,Robin Server,Production
+South Data Center,12,B,12-056,Server,NA,Mercer,dell,U21,mercer-log-2,0,R710,PowerEdge R710,GRDRLM1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-057,Server,NA,Mercer,dell,U21,mercer-log-3,0,R710,PowerEdge R710,GRDSLM1,1/1/17,Compute Node,Production
+South Data Center,12,B,12-056,Server,NA,Mercer,dell,U41,soho,0,R710,PowerEdge R710,DR4YKK1,1/1/17,Compute Node,Production
+South Data Center,12,K,24-008,Server,NA,Prince,dell,U1,gpu-01,0,C4130,PowerEdge C4130,N6QQD2,1/1/17,GPU Node,Production
+South Data Center,12,K,24-008,Server,NA,Prince,dell,U2,gpu-02,0,C4130,PowerEdge C4130,7N5VQD2,1/1/17,GPU Node,Production
+South Data Center,12,K,24-008,Server,NA,Prince,dell,U3,gpu-03,0,C4130,PowerEdge C4130,7N5TQD2,1/1/17,GPU Node,Production
+South Data Center,12,K,24-008,Server,NA,Prince,dell,U4,gpu-04,0,C4130,PowerEdge C4130,7N6PQD2,1/1/17,GPU Node,Production
+South Data Center,12,K,24-007,Server,NA,Prince,dell,U1,gpu-05,0,C4130,PowerEdge C4130,7N6NQD2,1/1/17,GPU Node,Production
+South Data Center,12,K,24-007,Server,NA,Prince,dell,U2,gpu-06,0,C4130,PowerEdge C4130,7N5SQD2,1/1/17,GPU Node,Production
+South Data Center,12,K,24-007,Server,NA,Prince,dell,U3,gpu-07,0,C4130,PowerEdge C4130,7N5QQD2,1/1/17,GPU Node,Production
+South Data Center,12,K,24-007,Server,NA,Prince,dell,U4,gpu-08,0,C4130,PowerEdge C4130,7N5RQD2,1/1/17,GPU Node,Production
+South Data Center,12,K,24-007,Server,NA,Prince,dell,U5,gpu-09,0,C4130,PowerEdge C4130,46LMRD2,1/1/17,GPU Node,Production
+South Data Center,12,K,24-006,Server,NA,Prince,supermirco,U3,gpu-10,0,SYS-4028GR-TR,SuperMicro SYS-4028GR-TR,S188901X6823550,1/1/17,GPU Node,Production
+South Data Center,12,K,24-006,Server,NA,Prince,supermirco,U7,gpu-11,0,SYS-4028GR-TR,SuperMicro SYS-4028GR-TR,S188901X6A02707,1/1/17,GPU Node,Production
+South Data Center,12,K,24-006,Server,NA,Prince,supermirco,U11,gpu-12,0,SYS-4028GR-TR,SuperMicro SYS-4028GR-TR,S188901X6821154,1/1/17,GPU Node,Production
+South Data Center,12,K,24-006,Server,NA,Prince,supermirco,U16,gpu-13,0,SYS-4028GR-TR,SuperMicro SYS-4028GR-TR,S188901X6823531,1/1/17,GPU Node,Production
+South Data Center,12,E,12-010,Server,NA,Prince,supermirco,U13,gpu-23,0,RM4970,Cirrascale - RM4970,1008051,1/1/17,GPU Node,Production
+South Data Center,12,E,12-010,Server,NA,Prince,supermirco,U17,gpu-24,0,RM4970,Cirrascale - RM4970,1008054,1/1/17,GPU Node,Production
+South Data Center,12,E,12-010,Server,NA,Prince,supermirco,U21,gpu-25,0,RM4970,Cirrascale - RM4970,1008056,1/1/17,GPU Node,Production
+South Data Center,12,E,12-009,Server,NA,Prince,supermirco,U13,gpu-26,0,RM4970,Cirrascale - RM4970,1008055,1/1/17,GPU Node,Production
+South Data Center,12,E,12-009,Server,NA,Prince,supermirco,U17,gpu-27,0,RM4970,Cirrascale - RM4970,1008052,1/1/17,GPU Node,Production
+South Data Center,12,E,12-008,Server,NA,Prince,supermirco,U13,gpu-28,0,RM4970,Cirrascale - RM4970,1008049,1/1/17,GPU Node,Production
+South Data Center,12,E,12-008,Server,NA,Prince,supermirco,U17,gpu-29,0,RM4970,Cirrascale - RM4970,1008050,1/1/17,GPU Node,Production
+South Data Center,12,E,12-008,Server,NA,Prince,supermirco,U21,gpu-30,0,RM4970,Cirrascale - RM4970,1008053,1/1/17,GPU Node,Production
+South Data Center,12,E,12-072,Server,NA,Hades,master,U11,hades0,0,R730,PowerEdge R730,FN6FR52,1/1/15,Master Node for Hadoes,Production
+South Data Center,12,E,12-072,Server,NA,Hades,login,U9,login-1-1,0,R730,PowerEdge R730,D72GR52,1/1/15,Login node for Hades,Production
+South Data Center,12,E,12-072,Server,NA,Hades,dell,U7,compute-1-2,0,R730,PowerEdge R730,D70JR52,1/1/15,Mongodb Node,Production
+South Data Center,12,E,12-072,Server,NA,Hades,dell,U5,compute-1-3,0,R730,PowerEdge R730,D70HR52,1/1/15,Mongodb Node,Production
+South Data Center,12,E,12-072,Server,NA,Hades,dell,U3,compute-1-4,0,R730,PowerEdge R730,D71CR52,1/1/15,Mongodb Node,Production
+South Data Center,12,E,12-072,Server,NA,Hades,dell,U1,compute-1-5,0,R730,PowerEdge R730,D70GR52,1/1/15,Mongodb Node,Production
+South Data Center,12,E,12-071,Server,NA,Dumbo,master,U25,babar,0,R730,PowerEdge R730,96MYT52,1/1/15,Master Node for Big Data,Productiin
+South Data Center,12,E,12-070,Server,NA,Dumbo,dell,U1,compute-1-1,0,R730xd,PowerEdge R730xd,4TV0S52,1/1/15,BigData,Production
+South Data Center,12,E,12-070,Server,NA,Dumbo,dell,U19,compute-1-10,0,R730xd,PowerEdge R730xd,4TS2S52,1/1/15,BigData,Production
+South Data Center,12,E,12-070,Server,NA,Dumbo,dell,U27,compute-1-11,0,R730xd,PowerEdge R730xd,4TRZR52,1/1/15,BigData,Production
+South Data Center,12,E,12-070,Server,NA,Dumbo,dell,U29,compute-1-12,0,R730xd,PowerEdge R730xd,4TS1S52,1/1/15,BigData,Production
+South Data Center,12,E,12-070,Server,NA,Dumbo,dell,U31,compute-1-13,0,R730xd,PowerEdge R730xd,4TV1S52,1/1/15,BigData,Production
+South Data Center,12,E,12-070,Server,NA,Dumbo,dell,U33,compute-1-14,0,R730xd,PowerEdge R730xd,4TW6S52,1/1/15,BigData,Production
+South Data Center,12,E,12-070,Server,NA,Dumbo,dell,U35,compute-1-15,0,R730xd,PowerEdge R730xd,4TT6S52,1/1/15,BigData,Production
+South Data Center,12,E,12-070,Server,NA,Dumbo,dell,U37,compute-1-16,0,R730xd,PowerEdge R730xd,4TS5S52,1/1/15,BigData,Production
+South Data Center,12,E,12-070,Server,NA,Dumbo,dell,U3,compute-1-2,0,R730xd,PowerEdge R730xd,4TS3S52,1/1/15,BigData,Production
+South Data Center,12,E,12-070,Server,NA,Dumbo,dell,U5,compute-1-3,0,R730xd,PowerEdge R730xd,4TS0S52,1/1/15,BigData,Production
+South Data Center,12,E,12-070,Server,NA,Dumbo,dell,U7,compute-1-4,0,R730xd,PowerEdge R730xd,4TW5S52,1/1/15,BigData,Production
+South Data Center,12,E,12-070,Server,NA,Dumbo,dell,U9,compute-1-5,0,R730xd,PowerEdge R730xd,4TW7S52,1/1/15,BigData,Production
+South Data Center,12,E,12-070,Server,NA,Dumbo,dell,U11,compute-1-6,0,R730xd,PowerEdge R730xd,4TS4S52,1/1/15,BigData,Production
+South Data Center,12,E,12-070,Server,NA,Dumbo,dell,U13,compute-1-7,0,R730xd,PowerEdge R730xd,4TW0S52,1/1/15,BigData,Production
+South Data Center,12,E,12-070,Server,NA,Dumbo,dell,U15,compute-1-8,0,R730xd,PowerEdge R730xd,4TT1S52,1/1/15,BigData,Production
+South Data Center,12,E,12-070,Server,NA,Dumbo,dell,U17,compute-1-9,0,R730xd,PowerEdge R730xd,4TS7S52,1/1/15,BigData,Production
+South Data Center,12,E,12-071,Server,NA,Dumbo,dell,U1,compute-2-1,0,R730xd,PowerEdge R730xd,4TR4S52,1/1/15,BigData,Production
+South Data Center,12,E,12-071,Server,NA,Dumbo,dell,U19,compute-2-10,0,R730xd,PowerEdge R730xd,4TR1S52,1/1/15,BigData,Production
+South Data Center,12,E,12-071,Server,NA,Dumbo,dell,U27,compute-2-11,0,R730xd,PowerEdge R730xd,4TT0S52,1/1/15,BigData,Production
+South Data Center,12,E,12-071,Server,NA,Dumbo,dell,U29,compute-2-12,0,R730xd,PowerEdge R730xd,4TTYR52,1/1/15,BigData,Production
+South Data Center,12,E,12-071,Server,NA,Dumbo,dell,U31,compute-2-13,0,R730xd,PowerEdge R730xd,4TV5S52,1/1/15,BigData,Production
+South Data Center,12,E,12-071,Server,NA,Dumbo,dell,U33,compute-2-14,0,R730xd,PowerEdge R730xd,4TV2S52,1/1/15,BigData,Production
+South Data Center,12,E,12-071,Server,NA,Dumbo,dell,U35,compute-2-15,0,R730xd,PowerEdge R730xd,4TT4S52,1/1/15,BigData,Production
+South Data Center,12,E,12-071,Server,NA,Dumbo,dell,U37,compute-2-16,0,R730xd,PowerEdge R730xd,4TV4S52,1/1/15,BigData,Production
+South Data Center,12,E,12-071,Server,NA,Dumbo,dell,U3,compute-2-2,0,R730xd,PowerEdge R730xd,4TT2S52,1/1/15,BigData,Production
+South Data Center,12,E,12-071,Server,NA,Dumbo,dell,U5,compute-2-3,0,R730xd,PowerEdge R730xd,4TR6S52,1/1/15,BigData,Production
+South Data Center,12,E,12-071,Server,NA,Dumbo,dell,U7,compute-2-4,0,R730xd,PowerEdge R730xd,4TTZR52,1/1/15,BigData,Production
+South Data Center,12,E,12-071,Server,NA,Dumbo,dell,U9,compute-2-5,0,R730xd,PowerEdge R730xd,4TR2S52,1/1/15,BigData,Production
+South Data Center,12,E,12-071,Server,NA,Dumbo,dell,U11,compute-2-6,0,R730xd,PowerEdge R730xd,4TVYR52,1/1/15,BigData,Production
+South Data Center,12,E,12-071,Server,NA,Dumbo,dell,U13,compute-2-7,0,R730xd,PowerEdge R730xd,4TT3S52,1/1/15,BigData,Production
+South Data Center,12,E,12-071,Server,NA,Dumbo,dell,U15,compute-2-8,0,R730xd,PowerEdge R730xd,4TR5S52,1/1/15,BigData,Production
+South Data Center,12,E,12-071,Server,NA,Dumbo,dell,U17,compute-2-9,0,R730xd,PowerEdge R730xd,4TW4S52,1/1/15,BigData,Production
+South Data Center,12,E,12-072,Server,NA,Dumbo,dell,U13,compute-3-1,0,R730xd,PowerEdge R730xd,4TT5S52,1/1/15,BigData,Production
+South Data Center,12,E,12-072,Server,NA,Dumbo,dell,U33,compute-3-10,0,R730xd,PowerEdge R730xd,4TRYR52,1/1/15,BigData,Production
+South Data Center,12,E,12-072,Server,NA,Dumbo,dell,U35,compute-3-11,0,R730xd,PowerEdge R730xd,4TS6S52,1/1/15,BigData,Production
+South Data Center,12,E,12-072,Server,NA,Dumbo,dell,U37,compute-3-12,0,R730xd,PowerEdge R730xd,4TV3S52,1/1/15,BigData,Production
+South Data Center,12,E,12-072,Server,NA,Dumbo,dell,U15,compute-3-2,0,R730xd,PowerEdge R730xd,4TR3S52,1/1/15,BigData,Production
+South Data Center,12,E,12-072,Server,NA,Dumbo,dell,U17,compute-3-3,0,R730xd,PowerEdge R730xd,4TT7S52,1/1/15,BigData,Production
+South Data Center,12,E,12-072,Server,NA,Dumbo,dell,U19,compute-3-4,0,R730xd,PowerEdge R730xd,4TSYR52,1/1/15,BigData,Production
+South Data Center,12,E,12-072,Server,NA,Dumbo,dell,U23,compute-3-5,0,R730xd,PowerEdge R730xd,XXXXXXX,1/1/15,BigData,Production
+South Data Center,12,E,12-072,Server,NA,Dumbo,dell,U25,compute-3-6,0,R730xd,PowerEdge R730xd,4TR7S52,1/1/15,BigData,Production
+South Data Center,12,E,12-072,Server,NA,Dumbo,dell,U27,compute-3-7,0,R730xd,PowerEdge R730xd,4TSZR52,1/1/15,BigData,Production
+South Data Center,12,E,12-072,Server,NA,Dumbo,dell,U29,compute-3-8,0,R730xd,PowerEdge R730xd,4TV7S52,1/1/15,BigData,Production
+South Data Center,12,E,12-072,Server,NA,Dumbo,dell,U312,compute-3-9,0,R730xd,PowerEdge R730xd,4TVZR52,1/1/15,BigData,Production
+South Data Center,12,E,12-070,Server,NA,Dumbo,Login,U23,login-1-1,0,R730,PowerEdge R730,96MVT52,1/1/15,Login Node for Bigdata,Production
+South Data Center,12,E,12-071,Server,NA,Dumbo,Login,U23,login-2-1,0,R730,PowerEdge R730,96MWT52,1/1/15,Login Node for Bigdata,Production
+South Data Center,12,E,12-070,Server,NA,Dumbo,master,U25,master-1-1(hathi),0,R730,PowerEdge R730,96MXT52,1/1/15,Master Node for Big Data,Production
+South Data Center,12,K,24-009,Server,NA,NA,bastion,U21,hpc2,0,R710,PowerEdge R710,9R4YKK1,1/1/15,Bastion Host,Production
+South Data Center,12,K,24-006,Server,NA,Prince,login,U2,prince0(,0,R630,PowerEdge R630,4BTZJB2,1/1/15,Login Node for Prince,Production
+South Data Center,12,K,24-005,Server,NA,Prince,login,U2,prince1,0,R630,PowerEdge R630,4BV0KB2,1/1/15,Login Node for Prince,Production
+South Data Center,12,E,12-001,Server,NA,Prince,compute,U23,c99-04,0,R630,PowerEdge R630,H843B42,1/1/15,Compute node,Production
+South Data Center,12,E,12-001,Server,NA,Prince,compute,U21,c99-03,0,R630,PowerEdge R630,H84W942,1/1/15,Compute node,Production
+South Data Center,12,E,12-001,Server,NA,NA,Bastion,U29,hpc,0,1850,PowerEdge 1850,DP87C91,1/1/15,Bastion Host,Production
+South Data Center,12,E,12-002,Server,NA,Prince,compute,U21,c99-01,0,R630,PowerEdge R630,H845B42,1/1/15,Compute node,Production
+South Data Center,12,E,12-002,Server,NA,Prince,compute,U23,c99-02,0,R630,PowerEdge R630,H844B42,1/1/15,Compute node,Production
+South Data Center,12,E,12-009,Server,NA,Prince,compute,U28,c99-06,0,R920,PowerEdge R920,5TGNB42,1/1/15,Compute node,Production
+South Data Center,12,E,12-009,Server,NA,Prince,compute,U32,c99-05,0,R920,PowerEdge R920,5DPBB42,1/1/15,Compute node,Production
+South Data Center,12,E,12-009,Server,NA,Prince,compute,U36,spring,0,R730,PowerEdge R730,GL4Z942,1/1/15,Lustre/Robin Hood,Production
+South Data Center,12,H,24-017,Server,NA,NA,compute,U18,balki,0,2950,PowerEdge 2950,DHGHJF1,1/1/15,Lustre/Robin Hood,Production
+South Data Center,12,H,24-017a,Storage,NA,NA,storage,U17,DDN 7700X  Controller,0,7700X  ,DDN 7700X  ,NA,1/1/17,DDN Applicance,Production
+South Data Center,12,H,24-017a,Storage,NA,NA,storage,U13,DDN 8460   Storage,0,8460,DDN 8460   ,NA,1/1/17,DDN Applicance,Production
+South Data Center,12,H,24-017a,Storage,NA,NA,storage,U9,DDN 8460   Storage,0,8460,DDN 8460   ,NA,1/1/17,DDN Applicance,Production
+South Data Center,12,H,24-017a,Storage,NA,NA,storage,U5,DDN 8460   Storage,0,8460,DDN 8460   ,NA,1/1/17,DDN Applicance,Production
+South Data Center,12,B,12-056,Switch,NA,NA,network,U38,ibswspine0,0,155025,Mellanox Switch 155025 QDR,155025-TBD-1,1/1/15,Networking,Production
+South Data Center,12,B,12-056,Switch,NA,NA,network,U36,ibswspine1,0,155025,Mellanox Switch 155025 QDR,155025-TBD-2,1/1/15,Networking,Production
+South Data Center,12,B,12-056,Switch,NA,NA,network,U34,ibswspine2,0,155025,Mellanox Switch 155025 QDR,155025-TBD-3,1/1/15,Networking,Production
+South Data Center,12,B,12-056,Switch,NA,NA,network,U32,ibswspine3,0,155025,Mellanox Switch 155025 QDR,155025-TBD-4,1/1/15,Networking,Production
+South Data Center,12,B,12-056,Switch,NA,NA,network,U30,ibswspine4,0,155025,Mellanox Switch 155025 QDR,155025-TBD-5,1/1/15,Networking,Production
+South Data Center,12,B,12-056,Switch,NA,NA,network,U28,ibswspine5,0,155025,Mellanox Switch 155025 QDR,155025-TBD-6,1/1/15,Networking,Production
+South Data Center,12,B,12-056,Switch,NA,NA,network,U26,ibswspine6,0,155025,Mellanox Switch 155025 QDR,155025-TBD-7,1/1/15,Networking,Production
+South Data Center,12,B,12-056,Switch,NA,NA,network,U24,ibswspine7,0,155025,Mellanox Switch 155025 QDR,155025-TBD-8,1/1/15,Networking,Production
+South Data Center,12,E,12-007,Switch,NA,NA,network,U42,ibswitch 12-007-U42,0,155025,Mellanox Switch 155025,155025-TBD-9,1/1/15,Networking,Production
+South Data Center,12,K,24-009,Switch,NA,NA,network,U41,ib-2-3,0,SB7790,Mellanox SB7790 EDR,MT1549N00006,1/1/15,Networking,Production
+South Data Center,12,K,24-009,Switch,NA,NA,network,U39,ib-2-2,0,SB7790,Mellanox SB7790 EDR,MT1611K03443,1/1/15,Networking,Production
+South Data Center,12,K,24-009,Switch,NA,NA,network,U37,ib-2-1,0,SB7790,Mellanox SB7790 EDR,MT1611K03412,1/1/15,Networking,Production
+South Data Center,12,K,24-009,Switch,NA,NA,network,U35,ib-2-0,0,SB7790,Mellanox SB7790 EDR,MT1611K03429,1/1/15,Networking,Production
+South Data Center,12,K,24-008,Switch,NA,NA,network,U41,ib-2-7,0,SB7790,Mellanox SB7790 EDR,MT1610X14108,1/1/15,Networking,Production
+South Data Center,12,K,24-008,Switch,NA,NA,network,U39,ib-2-6,0,SB7790,Mellanox SB7790 EDR,MT1549N00008,1/1/15,Networking,Production
+South Data Center,12,K,24-008,Switch,NA,NA,network,U37,ib-2-5,0,SB7790,Mellanox SB7790 EDR,MT1549N00001,1/1/15,Networking,Production
+South Data Center,12,K,24-008,Switch,NA,NA,network,U35,ib-2-4,0,SB7790,Mellanox SB7790 EDR,MT1604X21944,1/1/15,Networking,Production
+South Data Center,12,K,24-007,Switch,NA,NA,network,U24,e-10-1,0,S4048N,Dell Switch S4048-ON,DX09Y42,1/1/15,Networking,Production
+South Data Center,12,K,24-007,Switch,NA,NA,network,U23,e-1-1,0,S3048N,Dell Switch S3048-ON,37NRG02,1/1/15,Networking,Production
+South Data Center,12,K,24-003,Switch,NA,NA,network,U21,e-10-4,0,S4048N,Dell Switch S4048-ON,GRHDY42 ,1/1/15,Networking,Production
+South Data Center,12,K,24-003,Switch,NA,NA,network,U20,e-1-4,0,S3048N,Dell Switch S3048-ON,379RG02,1/1/15,Networking,Production
+South Data Center,12,K,24-003,Switch,NA,NA,network,U19,ib-1-3,0,SB7790,Mellanox SB7790 EDR,MT1604X21951,1/1/15,Networking,Production
+South Data Center,12,K,24-001,Switch,NA,NA,network,U21,e-10-3,0,S4048N,Dell Switch S4048-ON,BJMZX42,1/1/15,Networking,Production
+South Data Center,12,K,24-001,Switch,NA,NA,network,U20,e-1-3,0,S3048N,Dell Switch S3048-ON,37SQG02,1/1/15,Networking,Production
+South Data Center,12,K,24-001,Switch,NA,NA,network,U19,ib-1-5,0,SB7790,Mellanox SB7790 EDR,MT1549N00002,1/1/15,Networking,Production
+South Data Center,12,K,ww-001,Switch,NA,NA,network,U20,e-10-2,0,S4048N,Dell Switch S4048-ON,BQHDY42 ,1/1/15,Networking,Production
+South Data Center,12,K,ww-001,Switch,NA,NA,network,U19,e-1-2,0,S3048N,Dell Switch S3048-ON,37PSG02,1/1/15,Networking,Production
+South Data Center,12,H,24-007,Switch,NA,NA,network,U22,ib-1-7,0,SB7790,Mellanox SB7790 EDR,MT1602K08444,1/1/15,Networking,Production
+South Data Center,12,H,24-006,Switch,NA,NA,network,U41,e-1-0,0,S3048N,Dell Switch S3048-ON,37MRG02,1/1/15,Networking,Production
+South Data Center,12,H,24-005,Switch,NA,NA,network,U42,e-10-0,0,S4048N,Dell Switch S4048-ON,1RHDY42 ,1/1/15,Networking,Production
+South Data Center,12,H,24-017,Switch,NA,NA,network,U41,ib-3-1,0,SB7790,Mellanox SB7790 EDR,MT1550K03336,1/1/15,Networking,Production
+South Data Center,12,H,24-017,Switch,NA,NA,network,U39,ib-3-3,0,SB7790,Mellanox SB7790 EDR,MT1611K03428,1/1/15,Networking,Production
+South Data Center,12,H,24-017,Switch,NA,NA,network,U37,ib-3-5,0,SB7790,Mellanox SB7790 EDR,MT1610X14125,1/1/15,Networking,Production
+South Data Center,12,H,24-017,Switch,NA,NA,network,U35,ib-1-1,0,SB7790,Mellanox SB7790 EDR,MT1611K03411,1/1/15,Networking,Production
+South Data Center,12,H,24-017,Switch,NA,NA,network,U32,e-10-5,0,S4048N,Dell Switch 4048-ON,6JMZX42 ,1/1/15,Networking,Production
+South Data Center,12,H,24-017,Switch,NA,NA,network,U31,e-1-5,0,S3048N,Dell Switch 3048-ON,37VSG02,1/1/15,Networking,Production
+South Data Center,12,H,24-017a,Switch,NA,NA,network,U44,ib-3-0,0,SB7790,Mellanox SB7790 EDR,MT1615K00619,1/1/15,Networking,Production
+South Data Center,12,H,24-017a,Switch,NA,NA,network,U42,ib-3-2,0,SB7790,Mellanox SB7790 EDR,MT1610X14112,1/1/15,Networking,Production
+South Data Center,12,H,24-017a,Switch,NA,NA,network,U40,ib-3-3,0,SB7790,Mellanox SB7790 EDR,MT1605X13540,1/1/15,Networking,Production
+South Data Center,12,H,24-017a,Switch,NA,NA,network,U38,ib-1-0,0,SB7790,Mellanox SB7790 EDR,MT1610X14113,1/1/15,Networking,Production
+south Data Center,12,NA,Storage,Switch,NA,NA,network,NA,Spare1-Mellanox,0,SB7790,Mellanox SB7790 EDR,MT1651X06350,1/1/15,Networking,Production
+South Data Center,12,NA,Storage,Switch,NA,NA,network,NA,Spare2-Mellanox,0,SB7790,Mellanox SB7790 EDR,MT1549N00003,1/1/15,Networking,Production
+South Data Center,12,NA,Storage,Switch,NA,NA,network,NA,Spare3-Mellanox,0,SB7790,Mellanox SB7790 EDR,MT1602K03256,1/1/15,Networking,Production
+South Data Center,12,E,12-072,Switch,NA,NA,network,U21,eLeg-10-100,0,N4064F,DELL N4064F,7WXR0Z1,1/1/15,Networking,Production
+South Data Center,12,E,12-071,Switch,NA,NA,network,U42,eLeg-1-100,0,6248,Dell PowerConnect 6248,TBD-M8,1/1/15,Networking,Production
+South Data Center,12,E,12-071,Switch,NA,NA,network,U21,eLeg-10-101,0,N0664F,Dell N4064F,JVXR0Z1,1/1/15,Networking,Production
+South Data Center,12,E,12-070,Switch,NA,NA,network,U21,eLeg-10-102,0,N0664F,Dell N4064F,5SXR0Z1,1/1/15,Networking,Production
+South Data Center,12,E,12-009,Switch,NA,NA,network,U39,eLeg-1-101,0,5448,Dell PowerConnect 5448,TBD-M9,1/1/15,Networking,Production
+South Data Center,12,E,12-009,Switch,NA,NA,network,U41,eLeg-10-105,0,8132F,Dell PowerConnect 8132F,7XPYZY1 ,1/1/15,Networking,Production
+South Data Center,12,E,12-007,Switch,NA,NA,network,U42,ibswspine12,0,155025,Mellanox Switch 155025,TBDC-11,1/1/15,Networking,Production
+South Data Center,12,E,12-007,Switch,NA,NA,network,U41,eLeg-1-103,0,6248,Dell Power Connect 6248,TBD-M7,1/1/15,Networking,Production
+South Data Center,12,E,12-006,Switch,NA,NA,network,U41,eLeg-1-104,0,6248,Dell Power Connect 6248,TBD-M6,1/1/15,Networking,Production
+south Data Center,12,E,12-006,Switch,NA,NA,network,U40,eLeg-1-105,0,6248,Dell Power Connect 6248,TBD-M5,1/1/15,Networking,Production
+South Data Center,12,E,12-006,Switch,NA,NA,network,R21,ibswspine16,0,155025,Mellanox Switch 155025,TBDC-7,1/1/15,Networking,Production
+South Data Center,12,E,12-005,Switch,NA,NA,network,R40,eLeg-1-106,0,6248,Dell PowerConnect 6248,TBD-M4,1/1/15,Networking,Production
+South Data Center,12,E,12-004,Switch,NA,NA,network,R40,eLeg-1-107,0,6248,Dell PowerConnect 6248,TBD-M3,1/1/15,Networking,Production
+South Data Center,12,E,12-003,Switch,NA,NA,network,R40,eLeg-1-108,0,6248,Dell PowerConnect 6248,TBD-M2,1/1/15,Networking,Production
+South Data Center,12,E,12-003,Switch,NA,NA,network,U35,ibswspine10,0,155025,Mellanox Switch 155025 QDR,TBDC-1,1/1/15,Networking,Production
+South Data Center,12,E,12-003,Switch,NA,NA,network,U33,ibswspine11,0,155025,Mellanox Switch 155025 QDR,TBDC-2,1/1/15,Networking,Production
+South Data Center,12,E,12-003,Switch,NA,NA,network,U31,ibswspine12,0,155025,Mellanox Switch 155025 QDR,TBDC-3,1/1/15,Networking,Production
+South Data Center,12,E,12-003,Switch,NA,NA,network,U29,ibswspine13,0,155025,Mellanox Switch 155025 QDR,TBDC-4,1/1/15,Networking,Production
+South Data Center,12,E,12-003,Switch,NA,NA,network,U27,ibswspine14,0,155025,Mellanox Switch 155025 QDR,TBDC-5,1/1/15,Networking,Production
+South Data Center,12,E,12-003,Switch,NA,NA,network,U25,ibswspine15,0,155025,Mellanox Switch 155025 QDR,TBDC-6,1/1/15,Networking,Production
+South Data Center,12,E,12-002,Switch,NA,NA,network,U42,eLeg-1-109,0,6248,Dell Power Connect 6248,TBD-M1,1/1/15,Networking,Production
+South Data Center,12,E,12-002,Switch,NA,NA,network,U40,ibswspine9,0,155025,Mellanox Switch FDR,TBDC-8,1/1/15,Networking,Production
+South Data Center,12,E,12-001,Switch,NA,NA,network,U40,ibswspine8,0,155025,Mellanox Switch FDR,TBDC-9,1/1/15,Networking,Production
+South Data Center,12,E,12-001,Switch,NA,NA,network,U42,eLeg-10-103,0,N4032F,Dell N4032F,1Z7Q0Z1 ,1/1/15,Networking,Production
+South Data Center,12,E,12-001,Switch,NA,NA,network,U41,eLeg-10-104,0,N4032F,Dell N4032F,4CVR0Z1 ,1/1/15,Networking,Production
+South Data Center,12,K,12-001,Server,NA,NA,Server,U24,greene,0,R730,PowerEdge R730,GL508B42,1/1/15,DTN,Production
+South Data Center,12,K,24-004,Chassis,NA,NA,bladechassis,U1,cmc-26,0,M1000,PowerEdge M1000,11SBS52,1/1/17,Server,Production
+South Data Center,12,K,24-004,Chassis,NA,NA,bladechassis,U11,cmc-27,0,M1000,PowerEdge M1000,6N09S52,1/1/17,Server,Production
+South Data Center,12,E,12-001,Chassis,NA,NA,bladechassis,U1,cmc-28,0,M1000,PowerEdge M1000,GC7Z942,1/1/17,Server,Production
+South Data Center,12,E,12-001,Chassis,NA,NA,bladechassis,U11,cmc-29,0,M1000,PowerEdge M1000,GCB2B42,1/1/17,Server,Production
+South Data Center,12,E,12-001,Chassis,NA,NA,bladechassis,U21,cmc-30,0,M1000,PowerEdge M1000,FHPBFB2,1/1/17,Server,Production
+South Data Center,12,E,12-001,Chassis,NA,NA,bladechassis,U1,cmc-31,0,M1000,PowerEdge M1000,GZ10B42,1/1/17,Server,Production
+South Data Center,12,B,12-055,Chassis,NA,NA,bladechassis,U33,cmc-32,0,M1000,PowerEdge M1000,B76LKY1,1/1/17,Server,Production
+South Data Center,12,B,12-055,Chassis,NA,NA,bladechassis,U23,cmc-33,0,M1000,PowerEdge M1000,79ZDHY1,1/1/17,Server,Production
+South Data Center,12,B,12-055,Chassis,NA,NA,bladechassis,U11,cmc-34,0,M1000,PowerEdge M1000,H8ZDHY1,1/1/17,Server,Production
+South Data Center,12,B,12-056,Chassis,NA,NA,bladechassis,U11,cmc-35,0,M1000,PowerEdge M1000,98ZDHY1,1/1/17,Server,Production
+South Data Center,12,B,12-057,Chassis,NA,NA,bladechassis,U23,cmc-36,0,M1000,PowerEdge M1000,15YDHY1,1/1/17,Server,Production
+South Data Center,12,B,12-057,Chassis,NA,NA,bladechassis,U23,cmc-37,0,M1000,PowerEdge M1000,45YDHY1,1/1/17,Server,Production
+South Data Center,12,B,12-057,Chassis,NA,NA,bladechassis,U11,cmc-38,0,M1000,PowerEdge M1000,F76LKY1,1/1/17,Server,Production
+South Data Center,12,B,12-055,Chassis,NA,NA,bladechassis,U1,cmc-39,0,M1000,PowerEdge M1000,D8ZDHY1,1/1/17,Server,Production
+South Data Center,12,B,12-056,Chassis,NA,NA,bladechassis,U1,cmc-40,0,M1000,PowerEdge M1000,GGYDHY1,1/1/17,Server,Production
+South Data Center,12,B,12-057,Chassis,NA,NA,bladechassis,U1,cmc-41,0,M1000,PowerEdge M1000,29ZDHY1,1/1/17,Server,Production
+South Data Center,12,B,12-054a,Server VM,Nutanix ,NA,Server,NA,hpcnagios,0,Virtual,Virtual Machine,NA,6/1/17,Server,Production
+South Data Center,12,B,12-054a,Server VM,Nutanix ,NA,Server,NA,hpcganglia,0,Virtual,Virtual Machine,NA,6/1/17,Server,Production
+South Data Center,12,B,12-054a,Server VM,Nutanix ,NA,Server,NA,hpcobservium,0,Virtual,Virtual Machine,NA,6/1/17,Server,Production
+South Data Center,12,B,12-054a,Server VM,Nutanix ,NA,Server,NA,hpcmysql,0,Virtual,Virtual Machine,NA,6/1/17,Server,Production
+South Data Center,12,B,12-054a,Server VM,Nutanix ,NA,Server,NA,hpcxmod,0,Virtual,Virtual Machine,NA,6/1/17,Server,Production
+South Data Center,12,B,12-054a,Server VM,ESXi Cluster,NA,Server,NA,psd01a-0046s,0,Virtual,Virtual Machine,NA,6/1/17,Server,Production
+South Data Center,12,B,12-054a,Server VM,ESXi Cluster,NA,Server,NA,psd01a-0047s,0,Virtual,Virtual Machine,NA,6/1/17,Server,Production
+South Data Center,12,B,12-054a,Server VM,RedHat KVM,NA,Server,NA,nbakli,0,Virtual,Virtual Machine,NA,6/1/17,Server,Production
+South Data Center,12,K,24-005,Server,PowerEdge C6320p Server Node,Prince,Server,U3,phi-01-02,0,C6320p,PowerEdge C6320p ,C9S5LH2,6/1/17,Server,Production
+South Data Center,12,K,24-005,Server,PowerEdge C6320p Server Node,Prince,Server,U3,phi-01-04,0,C6320p,PowerEdge C6320p ,C9SWKH2,6/1/17,Server,Production
+South Data Center,12,B,12-056,Switch,NA,NA,network,U40,eLeg-10-106,0,8132F,PowerConnect 8132F,6240VS1,1/1/15,Networking,Production
