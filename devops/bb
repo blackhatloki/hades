@@ -1,8 +1,0 @@
-wwsh -y  node clone c27-16 phi-01-02
-wwsh -y  node set phi-01-02 --netdev=eno1 --hwaddr=3c:fd:fe:25:52:c0
-wwsh -y  node set phi-01-02 -D eno1 -I 172.16.1.53
-wwsh -y  node set phi-01-02 -D ib0 -I 10.0.1.53
-wwsh -y  object modify -s IPMI_IPADDR=192.168.1.53 phi-01-02
-wwsh -y  node set phi-01-02 -D ib7 -I 10.0.5.53 -M 255.255.252.0
-wwsh -y  provision set phi-01-02 --fileadd ifcfg-ib0_0 
-wwsh -y  provision set phi-01-02 --bootlocal=normal
